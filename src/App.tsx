@@ -1,11 +1,14 @@
-import './App.css';
+import { Outlet } from 'react-router';
 
-const App = () => {
+import { Header } from '@/components/Header/Header';
+
+export const App = () => {
   return (
     <>
-      <h1>Recipe Book</h1>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 };
-
-export default App;
