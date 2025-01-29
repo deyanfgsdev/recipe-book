@@ -23,9 +23,9 @@ export const Header = () => {
             alt="Recipe Book Logo"
             className="header-left__logo"
           />
-          <h1 className="header-left__main-title text-bold-green text-[24px] font-bold">
+          <span className="header-left__main-title text-bold-green text-[24px] font-bold">
             Recipe Book
-          </h1>
+          </span>
         </div>
         <div className="header-right">
           {isMobileDevice ? (
