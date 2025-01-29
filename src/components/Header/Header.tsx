@@ -1,26 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { MenuMobileButton } from '@/components/Header/MobileMenuButton';
 import { MobileMenu } from '@/components/Header/MobileMenu';
 import { DesktopMenu } from '@/components/Header/DesktopMenu';
 
+import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
+
 export const Header = () => {
-  const [isMobileDevice, setIsMobileDevice] = useState<boolean>(true);
+  const { isMobileDevice } = useIsMobileDevice();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setIsMobileDevice(window.innerWidth < 992);
-    };
-
-    handleWindowResize();
-
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
 
   const toogleMobileMenu = () => {
     setIsMobileMenuOpen((prevState) => !prevState);
