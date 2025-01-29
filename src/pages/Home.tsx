@@ -1,7 +1,5 @@
 import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
-
-const MOBILE_HEADER_IMAGE = 'https://i.ibb.co/npZ5DZZ/mobile-header-bg.jpg';
-const DESKTOP_HEADER_IMAGE = 'https://i.ibb.co/GSnYnBH/desktop-header-bg.jpg';
+import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 
 export const Home = () => {
   const { isMobileDevice } = useIsMobileDevice();
