@@ -27,14 +27,25 @@ export const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header className="header fixed top-0 z-1 w-full">
       <div className="header__content bg-light-green flex items-center justify-between p-4">
-        <img src="vite.svg" alt="Recipe Book Logo" />
-        {isMobileDevice ? (
-          <MenuMobileButton toogleMobileMenu={toogleMobileMenu} />
-        ) : (
-          <DesktopMenu />
-        )}
+        <div className="header-left flex items-center gap-2">
+          <img
+            src="https://i.ibb.co/6R4St5T4/recipe-book-logo.png"
+            alt="Recipe Book Logo"
+            className="header-left__logo"
+          />
+          <h1 className="header-left__main-title text-bold-green text-[24px] font-bold">
+            Recipe Book
+          </h1>
+        </div>
+        <div className="header-right">
+          {isMobileDevice ? (
+            <MenuMobileButton toogleMobileMenu={toogleMobileMenu} />
+          ) : (
+            <DesktopMenu />
+          )}
+        </div>
       </div>
       {isMobileDevice && isMobileMenuOpen && <MobileMenu />}
     </header>

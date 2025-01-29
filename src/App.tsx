@@ -6,7 +6,7 @@ export const App = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className="main px-4 pt-[84px] pb-4">
         <Outlet />
       </main>
     </>

@@ -11,7 +11,7 @@ export const MenuMobileButton = ({
 
   return (
     <button
-      className="header__mobile-menu-button"
+      className="header-right__mobile-menu-button text-bold-green flex text-[32px]"
       onClick={handleMobileMenuClick}
     >
       <IoIosMenu />

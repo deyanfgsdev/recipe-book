@@ -1,13 +1,15 @@
 import { NavLink } from 'react-router';
 
 export const DesktopMenu = () => {
+  const desktopNavLinkClassName = 'text-bold-green text-[16px] font-bold';
+
   return (
-    <nav className="header__desktop-menu-nav">
-      <NavLink to="/categories" end>
+    <nav className="header-right__desktop-menu-nav flex gap-2">
+      <NavLink to="/categories" end className={desktopNavLinkClassName}>
         Categories
       </NavLink>
-      <NavLink to="/favourites" end>
-        Favourites Recipes
+      <NavLink to="/favourites" end className={desktopNavLinkClassName}>
+        Favourites
       </NavLink>
     </nav>
   );
