@@ -20,7 +20,9 @@ export const Home = () => {
           Welcome to the Recipe Book
         </h1>
       </header>
-      <div className="homepage__content p-4">Homepage Content</div>
+      <div className="homepage-content p-4">
+        <section className="homepage-content__search">Search form</section>
+      </div>
     </>
   );
 };
