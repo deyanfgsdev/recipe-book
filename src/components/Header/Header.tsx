@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { MenuMobileButton } from '@/components/Header/MobileMenuButton';
+import { MobileMenuButton } from '@/components/Header/MobileMenuButton';
 import { MobileMenu } from '@/components/Header/MobileMenu';
 import { DesktopMenu } from '@/components/Header/DesktopMenu';
 
@@ -29,7 +29,7 @@ export const Header = () => {
         </div>
         <div className="header-right">
           {isMobileDevice ? (
-            <MenuMobileButton toogleMobileMenu={toogleMobileMenu} />
+            <MobileMenuButton toogleMobileMenu={toogleMobileMenu} />
           ) : (
             <DesktopMenu />
           )}

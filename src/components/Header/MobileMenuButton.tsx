@@ -1,6 +1,6 @@
 import { IoIosMenu } from 'react-icons/io';
 
-export const MenuMobileButton = ({
+export const MobileMenuButton = ({
   toogleMobileMenu,
 }: {
   toogleMobileMenu: () => void;
