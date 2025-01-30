@@ -16,6 +16,10 @@ export const Search = () => {
     if (!query) {
       setSearchError("You can't search for an empty query");
 
+      setTimeout(() => {
+        setSearchError(null);
+      }, 2000);
+
       return;
     }
 
@@ -44,10 +48,13 @@ export const Search = () => {
   };
 
   return (
-    <form className="search-form flex flex-col gap-2" onSubmit={handleSubmit}>
+    <form
+      className="search-form mx-auto flex flex-col gap-2 md:max-w-[553px] xl:max-w-[650px]"
+      onSubmit={handleSubmit}
+    >
       <input
         id={queryId}
-        className="search-form__input placeholder:text-light-grey border-light-grey w-full rounded-lg border bg-white p-4 text-black"
+        className="search-form__input placeholder:text-light-grey border-light-grey rounded-lg border bg-white p-4 text-black [box-shadow:0_4px_4px_0_rgba(0,0,0,0.25)]"
         type="text"
         value={query}
         placeholder="Red Velvet Cupcake, Chicken Alfredo..."
