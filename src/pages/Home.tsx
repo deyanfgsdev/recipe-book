@@ -1,6 +1,8 @@
 import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 
+import { Search } from '@/components/Search/Search';
+
 export const Home = () => {
   const { isMobileDevice } = useIsMobileDevice();
 
@@ -21,7 +23,9 @@ export const Home = () => {
         </h1>
       </header>
       <div className="homepage-content p-4">
-        <section className="homepage-content__search">Search form</section>
+        <section className="homepage-content__search">
+          <Search />
+        </section>
       </div>
     </>
   );
