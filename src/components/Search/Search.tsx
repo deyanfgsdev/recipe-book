@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import debounce from 'just-debounce-it';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
 import { getSearchRecipes } from '@/services/recipes';
 import type { MappedResult as Recipe } from '@/services/recipes.types';
@@ -11,6 +12,14 @@ export const Search = ({
   const { query, updateQuery, searchError } = useRecipesSearch();
   const queryId = useId();
 
+  const debounceGetSearchRecipes = debounce((newQuery: string) => {
+    getSearchRecipes(newQuery).then(
+      (newRecipes: null | { recipes: Recipe[] }) => {
+        updateSearchRecipes(newRecipes?.recipes ?? null);
+      }
+    );
+  }, 300);
+
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { currentTarget } = event;
     const { value: newQuery } = currentTarget;
@@ -20,19 +29,13 @@ export const Search = ({
     }
 
     updateQuery(newQuery);
-    getSearchRecipes(newQuery).then(
-      (newRecipes: null | { recipes: Recipe[] }) => {
-        updateSearchRecipes(newRecipes?.recipes ?? null);
-      }
-    );
+    debounceGetSearchRecipes(newQuery);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    getSearchRecipes(query).then((newRecipes: null | { recipes: Recipe[] }) => {
-      updateSearchRecipes(newRecipes?.recipes ?? null);
-    });
+    debounceGetSearchRecipes(query);
   };
 
   return (
