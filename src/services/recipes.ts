@@ -1,12 +1,12 @@
 import { SPOONACULAR_API_PREFIX, SPOONACULAR_API_KEY } from '@/utils/constants';
 import type {
   SearchRecipesResponse,
-  MappedResult,
+  MappedResult as Recipe,
 } from '@/services/recipes.types';
 
 export const getSearchRecipes = (
   query: string
-): Promise<null | { recipes: MappedResult[] }> => {
+): Promise<null | { recipes: Recipe[] }> => {
   return fetch(
     `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}`
   )
