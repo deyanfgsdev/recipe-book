@@ -15,3 +15,9 @@ export interface Result {
 export enum ImageType {
   Jpg = 'jpg',
 }
+
+export interface MappedResult {
+  recipeId: number;
+  recipeTitle: string;
+  recipeImage: string;
+}
