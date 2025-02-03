@@ -1,7 +1,13 @@
 import { useId } from 'react';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
+import { getSearchRecipes } from '@/services/recipes';
+import type { MappedResult as Recipe } from '@/services/recipes.types';
 
-export const Search = () => {
+export const Search = ({
+  updateSearchRecipes,
+}: {
+  updateSearchRecipes: (newRecipes: null | Recipe[]) => void;
+}) => {
   const { query, updateQuery, searchError } = useRecipesSearch();
   const queryId = useId();
 
@@ -14,10 +20,19 @@ export const Search = () => {
     }
 
     updateQuery(newQuery);
+    getSearchRecipes(newQuery).then(
+      (newRecipes: null | { recipes: Recipe[] }) => {
+        updateSearchRecipes(newRecipes?.recipes ?? null);
+      }
+    );
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    getSearchRecipes(query).then((newRecipes: null | { recipes: Recipe[] }) => {
+      updateSearchRecipes(newRecipes?.recipes ?? null);
+    });
   };
 
   return (
