@@ -1,7 +1,12 @@
 import { SPOONACULAR_API_PREFIX, SPOONACULAR_API_KEY } from '@/utils/constants';
-import { SearchRecipesResponse } from '@/services/recipes.types';
+import type {
+  SearchRecipesResponse,
+  MappedResult,
+} from '@/services/recipes.types';
 
-export const getSearchRecipes = (query: string) => {
+export const getSearchRecipes = (
+  query: string
+): Promise<null | { recipes: MappedResult[] }> => {
   return fetch(
     `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}`
   )
@@ -27,5 +32,7 @@ export const getSearchRecipes = (query: string) => {
     })
     .catch((error: Error) => {
       console.error(error.message);
+
+      return null;
     });
 };
