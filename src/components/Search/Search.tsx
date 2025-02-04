@@ -2,7 +2,7 @@ import { useId } from 'react';
 import debounce from 'just-debounce-it';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
 import { getSearchRecipes } from '@/services/recipes';
-import type { MappedResult as Recipe } from '@/services/recipes.types';
+import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const Search = ({
   updateSearchRecipes,
