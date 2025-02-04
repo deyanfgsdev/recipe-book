@@ -41,7 +41,7 @@ export const getSearchRecipes = (
 export const getRandomRecipes = (
   addRecipeInformation = true,
   recipesNumber = 10
-): Promise<void | CustomRecipe[] | undefined> => {
+): Promise<null | CustomRecipe[] | undefined> => {
   return fetch(
     `${SPOONACULAR_API_PREFIX}/recipes/random?apiKey=${SPOONACULAR_API_KEY}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}`
   )
@@ -67,5 +67,7 @@ export const getRandomRecipes = (
     })
     .catch((error: Error) => {
       console.error(error.message);
+
+      return null;
     });
 };
