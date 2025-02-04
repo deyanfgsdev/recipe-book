@@ -1,12 +1,13 @@
 import { SPOONACULAR_API_PREFIX, SPOONACULAR_API_KEY } from '@/utils/constants';
 import type {
   SearchRecipesResponse,
-  MappedResult as Recipe,
+  MappedRecipe as CustomRecipe,
+  RandomRecipesResponse,
 } from '@/services/recipes.types';
 
 export const getSearchRecipes = (
   query: string
-): Promise<null | { recipes: Recipe[] }> => {
+): Promise<null | { recipes: CustomRecipe[] }> => {
   return fetch(
     `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}`
   )
@@ -34,5 +35,37 @@ export const getSearchRecipes = (
       console.error(error.message);
 
       return null;
+    });
+};
+
+export const getRandomRecipes = (
+  addRecipeInformation = true,
+  recipesNumber = 10
+): Promise<void | CustomRecipe[] | undefined> => {
+  return fetch(
+    `${SPOONACULAR_API_PREFIX}/recipes/random?apiKey=${SPOONACULAR_API_KEY}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}`
+  )
+    .then((response) => {
+      if (!response.ok) throw new Error('Failed to fetch random recipes');
+
+      return response.json();
+    })
+    .then((data: RandomRecipesResponse) => {
+      const { recipes } = data;
+
+      const mappedRecipes = recipes?.map((recipe) => {
+        const { id, title, image } = recipe;
+
+        return {
+          recipeId: id,
+          recipeTitle: title,
+          recipeImage: image,
+        };
+      });
+
+      return mappedRecipes;
+    })
+    .catch((error: Error) => {
+      console.error(error.message);
     });
 };
