@@ -7,7 +7,7 @@ import type {
 
 export const getSearchRecipes = (
   query: string
-): Promise<null | { recipes: CustomRecipe[] }> => {
+): Promise<null | { recipes: CustomRecipe[] } | undefined> => {
   return fetch(
     `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}`
   )
