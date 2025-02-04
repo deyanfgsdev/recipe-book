@@ -6,15 +6,15 @@ import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 
 import { Search } from '@/components/Search/Search';
 
-import type { RecipesState } from '@/pages/Home.types';
+import type { Recipes } from '@/pages/Home.types';
 
 import { getRandomRecipes } from '@/services/recipes';
 
 export const Home = () => {
   const { isMobileDevice } = useIsMobileDevice();
   const [loading, setLoading] = useState<boolean>(false);
-  const [randomRecipes, setRandomRecipes] = useState<RecipesState>(null);
-  const [, setSearchRecipes] = useState<RecipesState>(null);
+  const [randomRecipes, setRandomRecipes] = useState<Recipes>(null);
+  const [, setSearchRecipes] = useState<Recipes>(null);
 
   const homepageHeaderClassName =
     'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';

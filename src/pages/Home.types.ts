@@ -1,3 +1,3 @@
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
-export type RecipesState = null | Recipe[];
+export type Recipes = null | Recipe[] | undefined;
