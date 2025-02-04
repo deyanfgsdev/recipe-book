@@ -5,6 +5,7 @@ import { useRandomRecipes } from '@/hooks/useRandomRecipes';
 import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 
 import { Search } from '@/components/Search/Search';
+import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
 
 import type { Recipes } from '@/pages/Home.types';
 import type { MappedRecipe as CustomRecipe } from '@/services/recipes.types';
@@ -45,10 +46,7 @@ export const Home = () => {
           {randomRecipes && (
             <ul>
               {randomRecipes.map((recipe) => (
-                <li key={recipe.recipeId}>
-                  <img src={recipe.recipeImage} alt={recipe.recipeTitle} />
-                  <h2>{recipe.recipeTitle}</h2>
-                </li>
+                <RecipeCard key={recipe.recipeId} recipe={recipe} />
               ))}
             </ul>
           )}
