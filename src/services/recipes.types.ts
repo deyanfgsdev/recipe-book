@@ -1,3 +1,5 @@
+/* Search Recipes Response */
+
 export interface SearchRecipesResponse {
   results: Result[];
   offset: number;
@@ -16,8 +18,8 @@ export enum ImageType {
   Jpg = 'jpg',
 }
 
-export interface MappedResult {
-  recipeId: number;
+export interface MappedRecipe {
+  readonly recipeId: number;
   recipeTitle: string;
   recipeImage: string;
 }
