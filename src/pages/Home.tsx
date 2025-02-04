@@ -7,6 +7,7 @@ import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 import { Search } from '@/components/Search/Search';
 
 import type { Recipes } from '@/pages/Home.types';
+import type { MappedRecipe as CustomRecipe } from '@/services/recipes.types';
 
 export const Home = () => {
   const { isMobileDevice } = useIsMobileDevice();
@@ -16,7 +17,9 @@ export const Home = () => {
   const homepageHeaderClassName =
     'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';
 
-  const updateSearchRecipes = (newRecipes: Recipes) => {
+  const updateSearchRecipes = (
+    newRecipes: null | CustomRecipe[] | undefined
+  ) => {
     setSearchRecipes(newRecipes);
   };
 
