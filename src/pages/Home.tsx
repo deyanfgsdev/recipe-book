@@ -41,10 +41,10 @@ export const Home = () => {
         <section className="homepage-content__search">
           <Search updateSearchRecipes={updateSearchRecipes} />
         </section>
-        <section className="homepage-content__recipes">
+        <section className="homepage-content__recipes mt-6">
           {loading && <p>Loading...</p>}
           {randomRecipes && (
-            <ul>
+            <ul className="recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
               {randomRecipes.map((recipe) => (
                 <RecipeCard key={recipe.recipeId} recipe={recipe} />
               ))}
