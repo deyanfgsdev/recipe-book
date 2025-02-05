@@ -4,8 +4,16 @@ import { FaRegHeart } from 'react-icons/fa';
 
 import type { MappedRecipe as CustomRecipe } from '@/services/recipes.types';
 
-export const RecipeCard = ({ recipe }: { recipe: CustomRecipe }) => {
+export const RecipeCard = ({
+  recipe,
+  titleMaxHeight,
+}: {
+  recipe: CustomRecipe;
+  titleMaxHeight: number;
+}) => {
   const { recipeTitle, recipeImage } = recipe;
+
+  console.log({ titleMaxHeight });
 
   return (
     <li className="recipe-card">
