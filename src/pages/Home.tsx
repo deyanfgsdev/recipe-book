@@ -21,7 +21,7 @@ export const Home = () => {
     'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';
 
   useEffect(() => {
-    if (!randomRecipes && searchRecipes) return;
+    if (!randomRecipes && !searchRecipes) return;
 
     const calculateTitleMaxHeight = () => {
       const recipesList = recipesListRef.current;
@@ -30,15 +30,17 @@ export const Home = () => {
 
       const recipesItems = [...recipesList.querySelectorAll('.recipe-card')];
 
-      const titlesHeights = recipesItems?.map((recipe) => {
-        const titleElem = recipe.querySelector(
-          '.recipe-card-info__title'
-        ) as HTMLElement;
+      const titlesHeights = recipesItems.map((recipeElem) => {
+        const titleElem = recipeElem.querySelector('.recipe-card-info__title');
 
-        return titleElem.offsetHeight;
+        if (!(titleElem instanceof HTMLElement)) return 0;
+
+        const { offsetHeight } = titleElem;
+
+        return offsetHeight;
       });
 
-      return titlesHeights ? Math.max(...titlesHeights) : 0;
+      return Math.max(...titlesHeights);
     };
 
     const newTitleMaxHeight = calculateTitleMaxHeight();

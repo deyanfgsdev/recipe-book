@@ -13,13 +13,14 @@ export const RecipeCard = ({
 }) => {
   const { recipeTitle, recipeImage } = recipe;
 
-  console.log({ titleMaxHeight });
-
   return (
     <li className="recipe-card">
       <img className="recipe-card__image" src={recipeImage} alt={recipeTitle} />
       <div className="recipe-card-info rounded-lg bg-white p-4 [box-shadow:0_4px_4px_0_rgba(0,0,0,0.25)]">
-        <h3 className="recipe-card-info__title text-bold-grey text-lg font-bold">
+        <h3
+          className="recipe-card-info__title text-bold-grey text-lg font-bold"
+          style={{ height: titleMaxHeight ? `${titleMaxHeight}px` : 'auto' }}
+        >
           {recipeTitle}
         </h3>
         <div className="recipe-card-info__actions mt-4 flex items-center justify-between">
