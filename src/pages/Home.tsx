@@ -19,6 +19,8 @@ export const Home = () => {
 
   const homepageHeaderClassName =
     'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';
+  const recipeListClassName =
+    'recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6';
 
   useEffect(() => {
     if (!randomRecipes && !searchRecipes) return;
@@ -72,12 +74,20 @@ export const Home = () => {
         </section>
         <section className="homepage-content__recipes mt-6">
           {loading && <p>Loading...</p>}
-          {randomRecipes && (
-            <ul
-              ref={recipesListRef}
-              className="recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6"
-            >
+          {randomRecipes && !searchRecipes && (
+            <ul ref={recipesListRef} className={recipeListClassName}>
               {randomRecipes.map((recipe) => (
+                <RecipeCard
+                  key={recipe.recipeId}
+                  recipe={recipe}
+                  titleMaxHeight={titleMaxHeight}
+                />
+              ))}
+            </ul>
+          )}
+          {searchRecipes && (
+            <ul ref={recipesListRef} className={recipeListClassName}>
+              {searchRecipes.map((recipe) => (
                 <RecipeCard
                   key={recipe.recipeId}
                   recipe={recipe}
