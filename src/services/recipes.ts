@@ -5,9 +5,7 @@ import type {
   RandomRecipesResponse,
 } from '@/services/recipes.types';
 
-export const getSearchRecipes = (
-  query: string
-): Promise<null | { recipes: CustomRecipe[] } | undefined> => {
+export const getSearchRecipes = (query: string): Promise<CustomRecipe[]> => {
   return fetch(
     `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}`
   )
@@ -17,9 +15,9 @@ export const getSearchRecipes = (
       return response.json();
     })
     .then((data: SearchRecipesResponse) => {
-      if (!data.results?.length) return null;
+      const { results } = data;
 
-      const mappedResults = data.results?.map((result) => {
+      const mappedResults = results?.map((result) => {
         const { id, title, image } = result;
 
         return {
@@ -29,19 +27,19 @@ export const getSearchRecipes = (
         };
       });
 
-      return { recipes: mappedResults };
+      return mappedResults ?? [];
     })
     .catch((error: Error) => {
       console.error(error.message);
 
-      return null;
+      return [];
     });
 };
 
 export const getRandomRecipes = (
   addRecipeInformation = true,
   recipesNumber = 10
-): Promise<null | CustomRecipe[] | undefined> => {
+): Promise<CustomRecipe[]> => {
   return fetch(
     `${SPOONACULAR_API_PREFIX}/recipes/random?apiKey=${SPOONACULAR_API_KEY}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}`
   )
@@ -63,11 +61,11 @@ export const getRandomRecipes = (
         };
       });
 
-      return mappedRecipes;
+      return mappedRecipes ?? [];
     })
     .catch((error: Error) => {
       console.error(error.message);
 
-      return null;
+      return [];
     });
 };
