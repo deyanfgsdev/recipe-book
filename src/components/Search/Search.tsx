@@ -5,22 +5,20 @@ import { useRecipesSearch } from '@/hooks/useRecipesSearch';
 
 import { getSearchRecipes } from '@/services/recipes';
 
-import type { MappedRecipe as CustomRecipe } from '@/services/recipes.types';
+import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const Search = ({
   updateSearchRecipes,
 }: {
-  updateSearchRecipes: (newRecipes: null | CustomRecipe[]) => void;
+  updateSearchRecipes: (newRecipes: Recipe[]) => void;
 }) => {
   const { query, updateQuery, searchError } = useRecipesSearch();
   const queryId = useId();
 
   const debounceGetSearchRecipes = debounce((newQuery: string) => {
-    getSearchRecipes(newQuery).then(
-      (newRecipes: null | { recipes: CustomRecipe[] } | undefined) => {
-        updateSearchRecipes(newRecipes?.recipes ?? null);
-      }
-    );
+    getSearchRecipes(newQuery).then((newRecipes: Recipe[]) => {
+      updateSearchRecipes(newRecipes);
+    });
   }, 300);
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {

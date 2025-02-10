@@ -1,11 +1,11 @@
 import { SPOONACULAR_API_PREFIX, SPOONACULAR_API_KEY } from '@/utils/constants';
 import type {
   SearchRecipesResponse,
-  MappedRecipe as CustomRecipe,
+  MappedRecipe as Recipe,
   RandomRecipesResponse,
 } from '@/services/recipes.types';
 
-export const getSearchRecipes = (query: string): Promise<CustomRecipe[]> => {
+export const getSearchRecipes = (query: string): Promise<Recipe[]> => {
   return fetch(
     `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}`
   )
@@ -39,7 +39,7 @@ export const getSearchRecipes = (query: string): Promise<CustomRecipe[]> => {
 export const getRandomRecipes = (
   addRecipeInformation = true,
   recipesNumber = 10
-): Promise<CustomRecipe[]> => {
+): Promise<Recipe[]> => {
   return fetch(
     `${SPOONACULAR_API_PREFIX}/recipes/random?apiKey=${SPOONACULAR_API_KEY}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}`
   )
