@@ -5,7 +5,7 @@ import { getRandomRecipes } from '@/services/recipes';
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const useRandomRecipes = () => {
-  const [randomRecipes, setRandomRecipes] = useState<Recipe[]>([]);
+  const [randomRecipes, setRandomRecipes] = useState<null | Recipe[]>(null);
 
   useEffect(() => {
     getRandomRecipes()
