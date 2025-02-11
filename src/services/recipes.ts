@@ -5,9 +5,12 @@ import type {
   RandomRecipesResponse,
 } from '@/services/recipes.types';
 
-export const getSearchRecipes = (query: string): Promise<Recipe[]> => {
+export const getSearchRecipes = (
+  query: string,
+  recipesNumber = 10
+): Promise<Recipe[]> => {
   return fetch(
-    `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}`
+    `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&number=${recipesNumber}`
   )
     .then((response) => {
       if (!response.ok) throw new Error('Failed to fetch recipes');
