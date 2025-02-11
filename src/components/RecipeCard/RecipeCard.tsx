@@ -7,14 +7,16 @@ import type { MappedRecipe as CustomRecipe } from '@/services/recipes.types';
 export const RecipeCard = ({
   recipe,
   titleMaxHeight,
+  type,
 }: {
   recipe: CustomRecipe;
   titleMaxHeight: number;
+  type: 'random' | 'search';
 }) => {
   const { recipeTitle, recipeImage } = recipe;
 
   return (
-    <li className="recipe-card">
+    <li className={`${type}-recipe-card`}>
       <img className="recipe-card__image" src={recipeImage} alt={recipeTitle} />
       <div className="recipe-card-info rounded-lg bg-white p-4 [box-shadow:0_4px_4px_0_rgba(0,0,0,0.25)]">
         <h3
