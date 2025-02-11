@@ -1,21 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
 import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { useRandomRecipes } from '@/hooks/useRandomRecipes';
+import { useRecipesLoading } from '@/hooks/useRecipesLoading';
 
 import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 
 import { Search } from '@/components/Search/Search';
 import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
 
-import type { Recipes } from '@/pages/Home.types';
-import type { MappedRecipe as CustomRecipe } from '@/services/recipes.types';
+import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const Home = () => {
   const { isMobileDevice } = useIsMobileDevice();
-  const { loading, randomRecipes } = useRandomRecipes();
-  const [searchRecipes, setSearchRecipes] = useState<Recipes>(null);
-  const [titleMaxHeight, setTitleMaxHeight] = useState<number>(0);
+  const { randomRecipes } = useRandomRecipes();
+  const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
+  const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const recipesListRef = useRef<HTMLUListElement | null>(null);
+  const [titleMaxHeight, setTitleMaxHeight] = useState<number>(0);
 
   const homepageHeaderClassName =
     'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';
@@ -49,9 +50,7 @@ export const Home = () => {
     setTitleMaxHeight(newTitleMaxHeight);
   }, [randomRecipes, searchRecipes]);
 
-  const updateSearchRecipes = (
-    newSearchRecipes: null | CustomRecipe[] | undefined
-  ) => {
+  const updateSearchRecipes = (newSearchRecipes: Recipe[]) => {
     setSearchRecipes(newSearchRecipes);
   };
 
@@ -74,27 +73,33 @@ export const Home = () => {
         </section>
         <section className="homepage-content__recipes mt-6">
           {loading && <p>Loading...</p>}
-          {randomRecipes && !searchRecipes && (
+          {!loading && (
             <ul ref={recipesListRef} className={recipeListClassName}>
-              {randomRecipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.recipeId}
-                  recipe={recipe}
-                  titleMaxHeight={titleMaxHeight}
-                />
-              ))}
+              {randomRecipes &&
+                randomRecipes.length > 0 &&
+                !searchRecipes &&
+                randomRecipes.map((recipe) => (
+                  <RecipeCard
+                    key={recipe.recipeId}
+                    recipe={recipe}
+                    titleMaxHeight={titleMaxHeight}
+                    type="random"
+                  />
+                ))}
+              {searchRecipes &&
+                searchRecipes.length > 0 &&
+                searchRecipes.map((recipe) => (
+                  <RecipeCard
+                    key={recipe.recipeId}
+                    recipe={recipe}
+                    titleMaxHeight={titleMaxHeight}
+                    type="search"
+                  />
+                ))}
             </ul>
           )}
-          {searchRecipes && (
-            <ul ref={recipesListRef} className={recipeListClassName}>
-              {searchRecipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.recipeId}
-                  recipe={recipe}
-                  titleMaxHeight={titleMaxHeight}
-                />
-              ))}
-            </ul>
+          {!loading && searchRecipes && !searchRecipes.length && (
+            <p>No recipes found</p>
           )}
         </section>
       </div>
