@@ -11,12 +11,14 @@ export const RecipeCard = ({
 }: {
   recipe: CustomRecipe;
   titleMaxHeight: number;
-  type: 'random' | 'search';
+  type: 'random' | 'result';
 }) => {
   const { recipeTitle, recipeImage } = recipe;
 
   return (
-    <li className={`${type}-recipe-card`}>
+    <li
+      className={`recipe-card ${type === 'random' ? 'recipe-card--random' : 'recipe-card--result'}`}
+    >
       <img className="recipe-card__image" src={recipeImage} alt={recipeTitle} />
       <div className="recipe-card-info rounded-lg bg-white p-4 [box-shadow:0_4px_4px_0_rgba(0,0,0,0.25)]">
         <h3
