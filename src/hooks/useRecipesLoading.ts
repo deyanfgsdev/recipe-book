@@ -6,8 +6,8 @@ export const useRecipesLoading = ({
   randomRecipes,
   searchRecipes,
 }: {
-  randomRecipes: Recipe[];
-  searchRecipes: Recipe[];
+  randomRecipes: null | Recipe[];
+  searchRecipes: null | Recipe[];
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
