@@ -32,7 +32,6 @@ export const Home = () => {
       if (!recipesList) return 0;
 
       const recipesItems = [...recipesList.querySelectorAll('.recipe-card')];
-
       const titlesHeights = recipesItems.map((recipeElem) => {
         const titleElem = recipeElem.querySelector('.recipe-card-info__title');
 
@@ -74,32 +73,40 @@ export const Home = () => {
         <section className="homepage-content__recipes mt-6">
           {loading && <p>Loading...</p>}
           {!loading && (
-            <ul ref={recipesListRef} className={recipeListClassName}>
-              {randomRecipes &&
-                randomRecipes.length > 0 &&
-                !searchRecipes &&
-                randomRecipes.map((recipe) => (
-                  <RecipeCard
-                    key={recipe.recipeId}
-                    recipe={recipe}
-                    titleMaxHeight={titleMaxHeight}
-                    type="random"
-                  />
-                ))}
-              {searchRecipes &&
-                searchRecipes.length > 0 &&
-                searchRecipes.map((recipe) => (
-                  <RecipeCard
-                    key={recipe.recipeId}
-                    recipe={recipe}
-                    titleMaxHeight={titleMaxHeight}
-                    type="search"
-                  />
-                ))}
-            </ul>
-          )}
-          {!loading && searchRecipes && !searchRecipes.length && (
-            <p>No recipes found</p>
+            <>
+              {searchRecipes?.length === 0 ? (
+                <p>No recipes found</p>
+              ) : (
+                <>
+                  {((randomRecipes && randomRecipes.length > 0) ||
+                    (searchRecipes && searchRecipes.length > 0)) && (
+                    <ul ref={recipesListRef} className={recipeListClassName}>
+                      {randomRecipes &&
+                        randomRecipes.length > 0 &&
+                        !searchRecipes &&
+                        randomRecipes.map((recipe) => (
+                          <RecipeCard
+                            key={recipe.recipeId}
+                            recipe={recipe}
+                            titleMaxHeight={titleMaxHeight}
+                            type="random"
+                          />
+                        ))}
+                      {searchRecipes &&
+                        searchRecipes.length > 0 &&
+                        searchRecipes.map((recipe) => (
+                          <RecipeCard
+                            key={recipe.recipeId}
+                            recipe={recipe}
+                            titleMaxHeight={titleMaxHeight}
+                            type="result"
+                          />
+                        ))}
+                    </ul>
+                  )}
+                </>
+              )}
+            </>
           )}
         </section>
       </div>
