@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 
-import type { Recipes } from '@/pages/Home.types';
+import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const useRecipesLoading = ({
   randomRecipes,
   searchRecipes,
 }: {
-  randomRecipes: Recipes;
-  searchRecipes: Recipes;
+  randomRecipes: Recipe[];
+  searchRecipes: Recipe[];
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
