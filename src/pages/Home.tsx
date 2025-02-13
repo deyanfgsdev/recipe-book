@@ -81,7 +81,7 @@ export const Home = () => {
           {loading && <p>Loading...</p>}
           {!loading && (
             <>
-              {searchRecipes?.length === 0 ? (
+              {formSearchErrorMessage || searchRecipes?.length === 0 ? (
                 <p>No recipes found</p>
               ) : (
                 <>
