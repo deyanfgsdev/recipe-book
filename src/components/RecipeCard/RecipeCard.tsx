@@ -2,13 +2,13 @@ import { Link } from 'react-router';
 
 import { FaRegHeart } from 'react-icons/fa';
 
-import type { MappedRecipe as CustomRecipe } from '@/services/recipes.types';
+import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const RecipeCard = ({
   recipe,
   type,
 }: {
-  recipe: CustomRecipe;
+  recipe: Recipe;
   type: 'random' | 'result';
 }) => {
   const { recipeTitle, recipeImage } = recipe;
