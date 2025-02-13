@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { Link } from 'react-router';
 
-import { FaRegHeart } from 'react-icons/fa';
+import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
@@ -11,7 +12,12 @@ export const RecipeCard = ({
   recipe: Recipe;
   type: 'random' | 'result';
 }) => {
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const { recipeTitle, recipeImage } = recipe;
+
+  const handleFavouriteClick = () => {
+    setIsFavourite(!isFavourite);
+  };
 
   return (
     <li
@@ -19,7 +25,7 @@ export const RecipeCard = ({
     >
       <img className="recipe-card__image" src={recipeImage} alt={recipeTitle} />
       <div className="recipe-card-info rounded-lg bg-white p-4 [box-shadow:0_4px_4px_0_rgba(0,0,0,0.25)]">
-        <h3 className="recipe-card-info__title text-bold-grey h-[28px] truncate overflow-hidden text-lg font-bold">
+        <h3 className="recipe-card-info__title text-bold-grey h-[28px] truncate text-lg font-bold">
           {recipeTitle}
         </h3>
         <div className="recipe-card-info__actions mt-4 flex items-center justify-between">
@@ -32,8 +38,13 @@ export const RecipeCard = ({
           <button
             type="button"
             className="recipe-card-info-action cursor-pointer"
+            onClick={handleFavouriteClick}
           >
-            <FaRegHeart className="text-2xl" />
+            {isFavourite ? (
+              <FaHeart className="text-fav-red text-2xl" />
+            ) : (
+              <FaRegHeart className="text-2xl" />
+            )}
           </button>
         </div>
       </div>
