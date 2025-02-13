@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 
 export const useRecipesSearch = () => {
   const [query, setQuery] = useState<string>('');
-  const [searchError, setSearchError] = useState<string | null>(null);
+  const [formSearchErrorMessage, setFormSearchErrorMessage] = useState<
+    string | null
+  >(null);
   const isFirstInput = useRef<boolean>(true);
 
   useEffect(() => {
@@ -13,27 +15,29 @@ export const useRecipesSearch = () => {
     }
 
     if (!query) {
-      setSearchError("You can't search for an empty query");
+      setFormSearchErrorMessage("You can't search for an empty query");
 
       setTimeout(() => {
-        setSearchError(null);
+        setFormSearchErrorMessage(null);
       }, 2000);
 
       return;
     }
 
     if (query.length < 3) {
-      setSearchError('Search query must be at least 3 characters long');
+      setFormSearchErrorMessage(
+        'Search query must be at least 3 characters long'
+      );
 
       return;
     }
 
-    setSearchError(null);
+    setFormSearchErrorMessage(null);
   }, [query]);
 
   const updateQuery = (newQuery: string) => {
     setQuery(newQuery);
   };
 
-  return { query, updateQuery, searchError };
+  return { query, updateQuery, formSearchErrorMessage };
 };

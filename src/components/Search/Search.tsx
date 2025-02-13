@@ -12,7 +12,7 @@ export const Search = ({
 }: {
   updateSearchRecipes: (newRecipes: Recipe[]) => void;
 }) => {
-  const { query, updateQuery, searchError } = useRecipesSearch();
+  const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
   const queryId = useId();
 
   const debounceGetSearchRecipes = debounce((newQuery: string) => {
@@ -52,9 +52,9 @@ export const Search = ({
         placeholder="Red Velvet Cupcake, Chicken Alfredo..."
         onChange={handleQueryChange}
       />
-      {searchError && (
+      {formSearchErrorMessage && (
         <span className="search-form__error-message text-red-500">
-          {searchError}
+          {formSearchErrorMessage}
         </span>
       )}
     </form>
