@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useRef, useId } from 'react';
 import debounce from 'just-debounce-it';
 
 import { getSearchRecipes } from '@/services/recipes';
@@ -17,6 +17,7 @@ export const Search = ({
   updateSearchRecipes: (newRecipes: Recipe[]) => void;
 }) => {
   const queryId = useId();
+  const prevSearch = useRef('');
 
   const debounceGetSearchRecipes = debounce((newQuery: string) => {
     getSearchRecipes(newQuery).then((newRecipes: Recipe[]) => {
@@ -32,12 +33,15 @@ export const Search = ({
       return;
     }
 
+    prevSearch.current = newQuery;
     updateQuery(newQuery);
     debounceGetSearchRecipes(newQuery);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (query === prevSearch.current) return;
 
     debounceGetSearchRecipes(query);
   };
