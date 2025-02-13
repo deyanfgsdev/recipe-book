@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { useRandomRecipes } from '@/hooks/useRandomRecipes';
+import { useRecipesSearch } from '@/hooks/useRecipesSearch';
 import { useRecipesLoading } from '@/hooks/useRecipesLoading';
 
 import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
@@ -13,6 +14,7 @@ import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 export const Home = () => {
   const { isMobileDevice } = useIsMobileDevice();
   const { randomRecipes } = useRandomRecipes();
+  const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
   const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const recipesListRef = useRef<HTMLUListElement | null>(null);
@@ -24,8 +26,6 @@ export const Home = () => {
     'recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6';
 
   useEffect(() => {
-    if (!randomRecipes && !searchRecipes) return;
-
     const calculateTitleMaxHeight = () => {
       const recipesList = recipesListRef.current;
 
@@ -45,9 +45,11 @@ export const Home = () => {
       return Math.max(...titlesHeights);
     };
 
-    const newTitleMaxHeight = calculateTitleMaxHeight();
-    setTitleMaxHeight(newTitleMaxHeight);
-  }, [randomRecipes, searchRecipes]);
+    if (!loading && (randomRecipes?.length || searchRecipes?.length)) {
+      const newTitleMaxHeight = calculateTitleMaxHeight();
+      setTitleMaxHeight(newTitleMaxHeight);
+    }
+  }, [loading, randomRecipes, searchRecipes, titleMaxHeight]);
 
   const updateSearchRecipes = (newSearchRecipes: Recipe[]) => {
     setSearchRecipes(newSearchRecipes);
@@ -68,7 +70,12 @@ export const Home = () => {
       </header>
       <div className="homepage-content p-4">
         <section className="homepage-content__search">
-          <Search updateSearchRecipes={updateSearchRecipes} />
+          <Search
+            query={query}
+            updateQuery={updateQuery}
+            formSearchErrorMessage={formSearchErrorMessage}
+            updateSearchRecipes={updateSearchRecipes}
+          />
         </section>
         <section className="homepage-content__recipes mt-6">
           {loading && <p>Loading...</p>}

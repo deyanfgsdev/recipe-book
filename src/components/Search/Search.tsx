@@ -1,18 +1,21 @@
 import { useId } from 'react';
 import debounce from 'just-debounce-it';
 
-import { useRecipesSearch } from '@/hooks/useRecipesSearch';
-
 import { getSearchRecipes } from '@/services/recipes';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const Search = ({
+  query,
+  updateQuery,
+  formSearchErrorMessage,
   updateSearchRecipes,
 }: {
+  query: string;
+  updateQuery: (newQuery: string) => void;
+  formSearchErrorMessage: string | null;
   updateSearchRecipes: (newRecipes: Recipe[]) => void;
 }) => {
-  const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
   const queryId = useId();
 
   const debounceGetSearchRecipes = debounce((newQuery: string) => {
