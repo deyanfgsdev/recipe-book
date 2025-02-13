@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { useRandomRecipes } from '@/hooks/useRandomRecipes';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
@@ -18,38 +18,11 @@ export const Home = () => {
   const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const recipesListRef = useRef<HTMLUListElement | null>(null);
-  const [titleMaxHeight, setTitleMaxHeight] = useState<number>(0);
 
   const homepageHeaderClassName =
     'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';
   const recipeListClassName =
     'recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6';
-
-  useEffect(() => {
-    const calculateTitleMaxHeight = () => {
-      const recipesList = recipesListRef.current;
-
-      if (!recipesList) return 0;
-
-      const recipesItems = [...recipesList.querySelectorAll('.recipe-card')];
-      const titlesHeights = recipesItems.map((recipeElem) => {
-        const titleElem = recipeElem.querySelector('.recipe-card-info__title');
-
-        if (!(titleElem instanceof HTMLElement)) return 0;
-
-        const { offsetHeight } = titleElem;
-
-        return offsetHeight;
-      });
-
-      return Math.max(...titlesHeights);
-    };
-
-    if (!loading && (randomRecipes?.length || searchRecipes?.length)) {
-      const newTitleMaxHeight = calculateTitleMaxHeight();
-      setTitleMaxHeight(newTitleMaxHeight);
-    }
-  }, [loading, randomRecipes, searchRecipes, titleMaxHeight]);
 
   const updateSearchRecipes = (newSearchRecipes: Recipe[]) => {
     setSearchRecipes(newSearchRecipes);
@@ -95,7 +68,6 @@ export const Home = () => {
                           <RecipeCard
                             key={recipe.recipeId}
                             recipe={recipe}
-                            titleMaxHeight={titleMaxHeight}
                             type="random"
                           />
                         ))}
@@ -105,7 +77,6 @@ export const Home = () => {
                           <RecipeCard
                             key={recipe.recipeId}
                             recipe={recipe}
-                            titleMaxHeight={titleMaxHeight}
                             type="result"
                           />
                         ))}
