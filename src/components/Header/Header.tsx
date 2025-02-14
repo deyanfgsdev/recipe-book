@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
 
 import { MobileMenuButton } from '@/components/Header/MobileMenuButton';
 import { MobileMenu } from '@/components/Header/MobileMenu';
@@ -17,7 +18,7 @@ export const Header = () => {
   return (
     <header className="header fixed top-0 z-1 w-full">
       <div className="header__content bg-light-green flex items-center justify-between p-4">
-        <div className="header-left flex items-center gap-2">
+        <Link to="/" className="header-left flex items-center gap-2">
           <img
             src="https://i.ibb.co/6R4St5T4/recipe-book-logo.png"
             alt="Recipe Book Logo"
@@ -26,7 +27,7 @@ export const Header = () => {
           <span className="header-left__main-title text-bold-green text-[24px] font-bold">
             Recipe Book
           </span>
-        </div>
+        </Link>
         <div className="header-right">
           {isMobileDevice ? (
             <MobileMenuButton toogleMobileMenu={toogleMobileMenu} />
