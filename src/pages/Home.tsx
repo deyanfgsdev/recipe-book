@@ -3,6 +3,7 @@ import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { useRandomRecipes } from '@/hooks/useRandomRecipes';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
 import { useRecipesLoading } from '@/hooks/useRecipesLoading';
+import { useFavouritesRecipes } from '@/hooks/useFavouritesRecipes';
 
 import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 
@@ -18,6 +19,7 @@ export const Home = () => {
   const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const recipesListRef = useRef<HTMLUListElement | null>(null);
+  const { favouritesRecipes } = useFavouritesRecipes();
 
   const homepageHeaderClassName =
     'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';
@@ -26,6 +28,10 @@ export const Home = () => {
 
   const updateSearchRecipes = (newSearchRecipes: Recipe[]) => {
     setSearchRecipes(newSearchRecipes);
+  };
+
+  const checkIfRecipeIsFavourite = (recipeId: number) => {
+    return favouritesRecipes.some((recipe) => recipe.recipeId === recipeId);
   };
 
   return (
@@ -64,22 +70,36 @@ export const Home = () => {
                       {randomRecipes &&
                         randomRecipes.length > 0 &&
                         !searchRecipes &&
-                        randomRecipes.map((recipe) => (
-                          <RecipeCard
-                            key={recipe.recipeId}
-                            recipe={recipe}
-                            type="random"
-                          />
-                        ))}
+                        randomRecipes.map((recipe) => {
+                          const { recipeId } = recipe;
+                          const isFavouriteRecipe =
+                            checkIfRecipeIsFavourite(recipeId);
+
+                          return (
+                            <RecipeCard
+                              key={recipe.recipeId}
+                              recipe={recipe}
+                              type="random"
+                              isFavouriteRecipe={isFavouriteRecipe}
+                            />
+                          );
+                        })}
                       {searchRecipes &&
                         searchRecipes.length > 0 &&
-                        searchRecipes.map((recipe) => (
-                          <RecipeCard
-                            key={recipe.recipeId}
-                            recipe={recipe}
-                            type="result"
-                          />
-                        ))}
+                        searchRecipes.map((recipe) => {
+                          const { recipeId } = recipe;
+                          const isFavouriteRecipe =
+                            checkIfRecipeIsFavourite(recipeId);
+
+                          return (
+                            <RecipeCard
+                              key={recipe.recipeId}
+                              recipe={recipe}
+                              type="result"
+                              isFavouriteRecipe={isFavouriteRecipe}
+                            />
+                          );
+                        })}
                     </ul>
                   )}
                 </>
