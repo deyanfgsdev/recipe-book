@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Link } from 'react-router';
+import { useFavouritesRecipes } from '@/hooks/useFavouritesRecipes';
 
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
@@ -8,16 +8,14 @@ import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 export const RecipeCard = ({
   recipe,
   type,
+  isFavouriteRecipe,
 }: {
   recipe: Recipe;
   type: 'random' | 'result';
+  isFavouriteRecipe: boolean;
 }) => {
-  const [isFavourite, setIsFavourite] = useState<boolean>(false);
-  const { recipeTitle, recipeImage } = recipe;
-
-  const handleFavouriteClick = () => {
-    setIsFavourite(!isFavourite);
-  };
+  const { recipeId, recipeTitle, recipeImage } = recipe;
+  const { addFavouriteRecipe, removeFavouriteRecipe } = useFavouritesRecipes();
 
   return (
     <li
@@ -38,12 +36,16 @@ export const RecipeCard = ({
           <button
             type="button"
             className="recipe-card-info-action cursor-pointer"
-            onClick={handleFavouriteClick}
+            onClick={
+              isFavouriteRecipe
+                ? () => removeFavouriteRecipe(recipeId)
+                : () => addFavouriteRecipe(recipe)
+            }
           >
-            {isFavourite ? (
+            {isFavouriteRecipe ? (
               <FaHeart className="text-fav-red text-2xl" />
             ) : (
-              <FaRegHeart className="text-2xl" />
+              <FaRegHeart className="text-fav-red text-2xl" />
             )}
           </button>
         </div>
