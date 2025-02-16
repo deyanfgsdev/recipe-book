@@ -12,6 +12,8 @@ import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
+import { checkIfRecipeIsFavourite } from '@/utils/favourites';
+
 export const Home = () => {
   const { isMobileDevice } = useIsMobileDevice();
   const { randomRecipes } = useRandomRecipes();
@@ -28,10 +30,6 @@ export const Home = () => {
 
   const updateSearchRecipes = (newSearchRecipes: Recipe[]) => {
     setSearchRecipes(newSearchRecipes);
-  };
-
-  const checkIfRecipeIsFavourite = (recipeId: number) => {
-    return favouritesRecipes.some((recipe) => recipe.recipeId === recipeId);
   };
 
   return (
@@ -72,8 +70,10 @@ export const Home = () => {
                         !searchRecipes &&
                         randomRecipes.map((recipe) => {
                           const { recipeId } = recipe;
-                          const isFavouriteRecipe =
-                            checkIfRecipeIsFavourite(recipeId);
+                          const isFavouriteRecipe = checkIfRecipeIsFavourite(
+                            recipeId,
+                            favouritesRecipes
+                          );
 
                           return (
                             <RecipeCard
@@ -88,8 +88,10 @@ export const Home = () => {
                         searchRecipes.length > 0 &&
                         searchRecipes.map((recipe) => {
                           const { recipeId } = recipe;
-                          const isFavouriteRecipe =
-                            checkIfRecipeIsFavourite(recipeId);
+                          const isFavouriteRecipe = checkIfRecipeIsFavourite(
+                            recipeId,
+                            favouritesRecipes
+                          );
 
                           return (
                             <RecipeCard
