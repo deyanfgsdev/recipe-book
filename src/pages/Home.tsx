@@ -77,7 +77,7 @@ export const Home = () => {
 
                           return (
                             <RecipeCard
-                              key={recipe.recipeId}
+                              key={recipeId}
                               recipe={recipe}
                               type="random"
                               isFavouriteRecipe={isFavouriteRecipe}
@@ -95,7 +95,7 @@ export const Home = () => {
 
                           return (
                             <RecipeCard
-                              key={recipe.recipeId}
+                              key={recipeId}
                               recipe={recipe}
                               type="result"
                               isFavouriteRecipe={isFavouriteRecipe}
