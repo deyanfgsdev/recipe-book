@@ -4,6 +4,7 @@ import { useFavouritesRecipes } from '@/hooks/useFavouritesRecipes';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
+import { RecipeCardVariant } from '@/components/RecipeCard/RecipeCard.type';
 
 export const RecipeCard = ({
   recipe,
@@ -11,7 +12,7 @@ export const RecipeCard = ({
   isFavouriteRecipe,
 }: {
   recipe: Recipe;
-  variant: 'random' | 'result' | 'favourite';
+  variant: RecipeCardVariant;
   isFavouriteRecipe: boolean;
 }) => {
   const { recipeId, recipeTitle, recipeImage } = recipe;
