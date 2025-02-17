@@ -59,7 +59,9 @@ export const Home = () => {
           {!loading && (
             <>
               {formSearchErrorMessage || searchRecipes?.length === 0 ? (
-                <p>No recipes found</p>
+                <p className="no-recipes-found-message text-bold-grey text-center text-xl">
+                  No recipes found
+                </p>
               ) : (
                 <>
                   {((randomRecipes && randomRecipes.length > 0) ||
