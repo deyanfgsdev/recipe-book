@@ -9,7 +9,7 @@ export const Favourites = () => {
     useFavouritesRecipes();
 
   const recipeListClassName =
-    'favourites-recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 mt-6';
+    'favourites-recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6 mt-6';
 
   return (
     <div className="favourites-page-content p-4">
