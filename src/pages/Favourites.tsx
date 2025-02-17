@@ -18,7 +18,9 @@ export const Favourites = () => {
       </h1>
       <section className="favourites-page-content__recipes">
         {!favouritesRecipes.length ? (
-          <p>No favourite recipes</p>
+          <p className="no-fav-recipes-message text-bold-grey mt-6 text-center text-xl">
+            No favourite recipes, please add some!
+          </p>
         ) : (
           <>
             <div className="remove-all-favourites flex justify-end">
