@@ -21,12 +21,17 @@ export const FavouritesRecipesProvider = ({
     );
   };
 
+  const removeAllFavouriteRecipes = () => {
+    setFavouritesRecipes([]);
+  };
+
   return (
     <FavouritesRecipesContext.Provider
       value={{
         favouritesRecipes,
         addFavouriteRecipe,
         removeFavouriteRecipe,
+        removeAllFavouriteRecipes,
       }}
     >
       {children}

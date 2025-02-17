@@ -5,10 +5,11 @@ import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
 import { checkIfRecipeIsFavourite } from '@/utils/favourites';
 
 export const Favourites = () => {
-  const { favouritesRecipes } = useFavouritesRecipes();
+  const { favouritesRecipes, removeAllFavouriteRecipes } =
+    useFavouritesRecipes();
 
   const recipeListClassName =
-    'favourites-recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6';
+    'favourites-recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6 mt-6';
 
   return (
     <div className="favourites-page-content p-4">
@@ -19,23 +20,34 @@ export const Favourites = () => {
         {!favouritesRecipes.length ? (
           <p>No favourite recipes</p>
         ) : (
-          <ul className={recipeListClassName}>
-            {favouritesRecipes.map((recipe) => {
-              const { recipeId } = recipe;
-              const isFavouriteRecipe = checkIfRecipeIsFavourite(
-                recipeId,
-                favouritesRecipes
-              );
-              return (
-                <RecipeCard
-                  key={recipeId}
-                  recipe={recipe}
-                  variant="favourite"
-                  isFavouriteRecipe={isFavouriteRecipe}
-                />
-              );
-            })}
-          </ul>
+          <>
+            <div className="remove-all-favourites flex justify-end">
+              <button
+                type="button"
+                className="remove-all-favourites__button cursor-pointer rounded-lg border border-red-500 px-4 py-2 font-medium text-red-500"
+                onClick={removeAllFavouriteRecipes}
+              >
+                Remove all favourites
+              </button>
+            </div>
+            <ul className={recipeListClassName}>
+              {favouritesRecipes.map((recipe) => {
+                const { recipeId } = recipe;
+                const isFavouriteRecipe = checkIfRecipeIsFavourite(
+                  recipeId,
+                  favouritesRecipes
+                );
+                return (
+                  <RecipeCard
+                    key={recipeId}
+                    recipe={recipe}
+                    variant="favourite"
+                    isFavouriteRecipe={isFavouriteRecipe}
+                  />
+                );
+              })}
+            </ul>
+          </>
         )}
       </section>
     </div>

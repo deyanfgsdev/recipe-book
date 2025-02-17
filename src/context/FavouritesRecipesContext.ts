@@ -5,6 +5,7 @@ interface FavouritesRecipesContextType {
   favouritesRecipes: Recipe[];
   addFavouriteRecipe: (recipe: Recipe) => void;
   removeFavouriteRecipe: (recipeId: number) => void;
+  removeAllFavouriteRecipes: () => void;
 }
 
 export const FavouritesRecipesContext = createContext<
