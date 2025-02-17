@@ -10,6 +10,7 @@ import { checkIfRecipeIsFavourite } from '@/utils/favourites';
 
 import { Search } from '@/components/Search/Search';
 import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
@@ -54,7 +55,7 @@ export const Home = () => {
           />
         </section>
         <section className="homepage-content__recipes mt-6">
-          {loading && <p>Loading...</p>}
+          {loading && <Spinner />}
           {!loading && (
             <>
               {formSearchErrorMessage || searchRecipes?.length === 0 ? (
