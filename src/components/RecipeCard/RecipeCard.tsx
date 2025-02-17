@@ -7,18 +7,18 @@ import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const RecipeCard = ({
   recipe,
-  type,
+  variant,
   isFavouriteRecipe,
 }: {
   recipe: Recipe;
-  type: 'random' | 'result' | 'favourite';
+  variant: 'random' | 'result' | 'favourite';
   isFavouriteRecipe: boolean;
 }) => {
   const { recipeId, recipeTitle, recipeImage } = recipe;
   const { addFavouriteRecipe, removeFavouriteRecipe } = useFavouritesRecipes();
 
   return (
-    <li className={`recipe-card recipe-card--${type}`}>
+    <li className={`recipe-card recipe-card--${variant}`}>
       <img className="recipe-card__image" src={recipeImage} alt={recipeTitle} />
       <div className="recipe-card-info rounded-lg bg-white p-4 [box-shadow:0_4px_4px_0_rgba(0,0,0,0.25)]">
         <h3 className="recipe-card-info__title text-bold-grey h-[28px] truncate text-lg font-bold">

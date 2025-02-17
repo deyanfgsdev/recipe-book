@@ -6,13 +6,12 @@ import { useRecipesLoading } from '@/hooks/useRecipesLoading';
 import { useFavouritesRecipes } from '@/hooks/useFavouritesRecipes';
 
 import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
+import { checkIfRecipeIsFavourite } from '@/utils/favourites';
 
 import { Search } from '@/components/Search/Search';
 import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
-
-import { checkIfRecipeIsFavourite } from '@/utils/favourites';
 
 export const Home = () => {
   const { isMobileDevice } = useIsMobileDevice();
@@ -79,7 +78,7 @@ export const Home = () => {
                             <RecipeCard
                               key={recipeId}
                               recipe={recipe}
-                              type="random"
+                              variant="random"
                               isFavouriteRecipe={isFavouriteRecipe}
                             />
                           );
@@ -97,7 +96,7 @@ export const Home = () => {
                             <RecipeCard
                               key={recipeId}
                               recipe={recipe}
-                              type="result"
+                              variant="result"
                               isFavouriteRecipe={isFavouriteRecipe}
                             />
                           );
