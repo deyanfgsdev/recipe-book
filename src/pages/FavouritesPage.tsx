@@ -4,7 +4,7 @@ import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
 
 import { checkIfRecipeIsFavourite } from '@/utils/favourites';
 
-export const Favourites = () => {
+export const FavouritesPage = () => {
   const { favouriteRecipes, removeAllFavouriteRecipes } = useFavouriteRecipes();
 
   const recipeListClassName =
