@@ -15,7 +15,7 @@ export const RecipeCard = ({
   variant: RecipeCardVariant;
   isFavouriteRecipe: boolean;
 }) => {
-  const { recipeId, recipeTitle, recipeImage } = recipe;
+  const { recipeTitle, recipeImage } = recipe;
   const { addFavouriteRecipe, removeFavouriteRecipe } = useFavouritesRecipes();
 
   return (
