@@ -14,7 +14,7 @@ import { Spinner } from '@/components/Spinner/Spinner';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
-export const Home = () => {
+export const HomePage = () => {
   const { isMobileDevice } = useIsMobileDevice();
   const { randomRecipes } = useRandomRecipes();
   const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
