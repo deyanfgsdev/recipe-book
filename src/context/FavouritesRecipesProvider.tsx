@@ -30,7 +30,7 @@ export const FavouritesRecipesProvider = ({
   return (
     <FavouritesRecipesContext.Provider
       value={{
-        favouritesRecipes: state,
+        favouriteRecipes: state,
         addFavouriteRecipe,
         removeFavouriteRecipe,
         removeAllFavouriteRecipes,
