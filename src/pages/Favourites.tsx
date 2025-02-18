@@ -1,12 +1,11 @@
-import { useFavouritesRecipes } from '@/hooks/useFavouritesRecipes';
+import { useFavouriteRecipes } from '@/hooks/useFavouriteRecipes';
 
 import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
 
 import { checkIfRecipeIsFavourite } from '@/utils/favourites';
 
 export const Favourites = () => {
-  const { favouritesRecipes, removeAllFavouriteRecipes } =
-    useFavouritesRecipes();
+  const { favouriteRecipes, removeAllFavouriteRecipes } = useFavouriteRecipes();
 
   const recipeListClassName =
     'favourites-recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6 mt-6';
@@ -17,7 +16,7 @@ export const Favourites = () => {
         Favourites Recipes
       </h1>
       <section className="favourites-page-content__recipes">
-        {!favouritesRecipes.length ? (
+        {!favouriteRecipes.length ? (
           <p className="no-fav-recipes-message text-bold-grey mt-6 text-center text-xl">
             No favourite recipes, please add some!
           </p>
@@ -33,11 +32,11 @@ export const Favourites = () => {
               </button>
             </div>
             <ul className={recipeListClassName}>
-              {favouritesRecipes.map((recipe) => {
+              {favouriteRecipes.map((recipe) => {
                 const { recipeId } = recipe;
                 const isFavouriteRecipe = checkIfRecipeIsFavourite(
                   recipeId,
-                  favouritesRecipes
+                  favouriteRecipes
                 );
                 return (
                   <RecipeCard

@@ -3,7 +3,7 @@ import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { useRandomRecipes } from '@/hooks/useRandomRecipes';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
 import { useRecipesLoading } from '@/hooks/useRecipesLoading';
-import { useFavouritesRecipes } from '@/hooks/useFavouritesRecipes';
+import { useFavouriteRecipes } from '@/hooks/useFavouriteRecipes';
 
 import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 import { checkIfRecipeIsFavourite } from '@/utils/favourites';
@@ -21,7 +21,7 @@ export const Home = () => {
   const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const recipesListRef = useRef<HTMLUListElement | null>(null);
-  const { favouritesRecipes } = useFavouritesRecipes();
+  const { favouriteRecipes } = useFavouriteRecipes();
 
   const homepageHeaderClassName =
     'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';
@@ -74,7 +74,7 @@ export const Home = () => {
                           const { recipeId } = recipe;
                           const isFavouriteRecipe = checkIfRecipeIsFavourite(
                             recipeId,
-                            favouritesRecipes
+                            favouriteRecipes
                           );
 
                           return (
@@ -92,7 +92,7 @@ export const Home = () => {
                           const { recipeId } = recipe;
                           const isFavouriteRecipe = checkIfRecipeIsFavourite(
                             recipeId,
-                            favouritesRecipes
+                            favouriteRecipes
                           );
 
                           return (

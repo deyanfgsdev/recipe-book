@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import { useFavouritesRecipes } from '@/hooks/useFavouritesRecipes';
+import { useFavouriteRecipes } from '@/hooks/useFavouriteRecipes';
 
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
@@ -16,7 +16,7 @@ export const RecipeCard = ({
   isFavouriteRecipe: boolean;
 }) => {
   const { recipeTitle, recipeImage } = recipe;
-  const { addFavouriteRecipe, removeFavouriteRecipe } = useFavouritesRecipes();
+  const { addFavouriteRecipe, removeFavouriteRecipe } = useFavouriteRecipes();
 
   return (
     <li className={`recipe-card recipe-card--${variant}`}>
