@@ -15,7 +15,7 @@ createRoot(document.getElementById('root')!).render(
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<HomePage />} />
-        <Route path="/favourites" element={<FavouritesPage />} />
+        <Route path="favourites" element={<FavouritesPage />} />
       </Route>
     </Routes>
   </BrowserRouter>
