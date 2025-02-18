@@ -4,7 +4,7 @@ import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 interface FavouritesRecipesContextType {
   favouritesRecipes: Recipe[];
   addFavouriteRecipe: (recipe: Recipe) => void;
-  removeFavouriteRecipe: (recipeId: number) => void;
+  removeFavouriteRecipe: (recipe: Recipe) => void;
   removeAllFavouriteRecipes: () => void;
 }
 

@@ -37,7 +37,7 @@ export const RecipeCard = ({
             className="recipe-card-info-action cursor-pointer"
             onClick={
               isFavouriteRecipe
-                ? () => removeFavouriteRecipe(recipeId)
+                ? () => removeFavouriteRecipe(recipe)
                 : () => addFavouriteRecipe(recipe)
             }
           >

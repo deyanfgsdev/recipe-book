@@ -1,4 +1,8 @@
-import { useState, ReactNode } from 'react';
+import { useReducer, ReactNode } from 'react';
+import {
+  favouriteRecipesInitialState,
+  favouriteRecipesReducer,
+} from '@/reducers/favouriteRecipes';
 
 import { FavouritesRecipesContext } from '@/context/FavouritesRecipesContext';
 
@@ -9,26 +13,24 @@ export const FavouritesRecipesProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const [favouritesRecipes, setFavouritesRecipes] = useState<Recipe[]>([]);
+  const [state, dispatch] = useReducer(
+    favouriteRecipesReducer,
+    favouriteRecipesInitialState
+  );
 
-  const addFavouriteRecipe = (recipe: Recipe) => {
-    setFavouritesRecipes((prevState) => [...prevState, recipe]);
-  };
+  const addFavouriteRecipe = (recipe: Recipe) =>
+    dispatch({ type: 'ADD_FAVOURITE_RECIPE', payload: recipe });
 
-  const removeFavouriteRecipe = (recipeId: number) => {
-    setFavouritesRecipes((prevState) =>
-      prevState.filter((recipe) => recipe.recipeId !== recipeId)
-    );
-  };
+  const removeFavouriteRecipe = (recipe: Recipe) =>
+    dispatch({ type: 'REMOVE_FAVOURITE_RECIPE', payload: recipe });
 
-  const removeAllFavouriteRecipes = () => {
-    setFavouritesRecipes([]);
-  };
+  const removeAllFavouriteRecipes = () =>
+    dispatch({ type: 'REMOVE_ALL_FAVOURITE_RECIPES' });
 
   return (
     <FavouritesRecipesContext.Provider
       value={{
-        favouritesRecipes,
+        favouritesRecipes: state,
         addFavouriteRecipe,
         removeFavouriteRecipe,
         removeAllFavouriteRecipes,
