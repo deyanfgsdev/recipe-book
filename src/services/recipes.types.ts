@@ -51,13 +51,6 @@ export enum ImageType {
   Jpg = 'jpg',
 }
 
-export interface MappedRecipe {
-  readonly recipeId: number;
-  recipeTitle: string;
-  recipeImage: string;
-  recipeSourceUrl: string;
-}
-
 /* Random Recipes Response */
 
 export interface RandomRecipesResponse {
@@ -158,4 +151,13 @@ export interface Metric {
   amount: number;
   unitShort: string;
   unitLong: string;
+}
+
+/* Mapped Recipe */
+
+export interface MappedRecipe {
+  readonly recipeId: number;
+  recipeTitle: string;
+  recipeImage: string;
+  recipeSourceUrl: string;
 }

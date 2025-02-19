@@ -7,10 +7,11 @@ import type {
 
 export const getSearchRecipes = (
   query: string,
+  addRecipeInformation = true,
   recipesNumber = 10
 ): Promise<Recipe[]> => {
   return fetch(
-    `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&number=${recipesNumber}`
+    `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}`
   )
     .then((response) => {
       if (!response.ok) throw new Error('Failed to fetch recipes');
@@ -21,12 +22,13 @@ export const getSearchRecipes = (
       const { results } = data;
 
       const mappedResults = results?.map((result) => {
-        const { id, title, image } = result;
+        const { id, title, image, spoonacularSourceUrl } = result;
 
         return {
           recipeId: id,
           recipeTitle: title,
           recipeImage: image,
+          recipeSourceUrl: spoonacularSourceUrl.split('/').pop() ?? '',
         };
       });
 
@@ -55,12 +57,13 @@ export const getRandomRecipes = (
       const { recipes } = data;
 
       const mappedRecipes = recipes?.map((recipe) => {
-        const { id, title, image } = recipe;
+        const { id, title, image, spoonacularSourceUrl } = recipe;
 
         return {
           recipeId: id,
           recipeTitle: title,
           recipeImage: image,
+          recipeSourceUrl: spoonacularSourceUrl.split('/').pop() ?? '',
         };
       });
 
