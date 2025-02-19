@@ -15,7 +15,7 @@ export const RecipeCard = ({
   variant: RecipeCardVariant;
   isFavouriteRecipe: boolean;
 }) => {
-  const { recipeTitle, recipeImage } = recipe;
+  const { recipeId, recipeTitle, recipeImage, recipeSourceUrl } = recipe;
   const { addFavouriteRecipe, removeFavouriteRecipe } = useFavouriteRecipes();
 
   return (
@@ -27,7 +27,7 @@ export const RecipeCard = ({
         </h3>
         <div className="recipe-card-info__actions mt-4 flex items-center justify-between">
           <Link
-            to=""
+            to={`/recipe/${recipeSourceUrl ? recipeSourceUrl : recipeId}`}
             className="recipe-card-info-action bg-yellow text-bold-grey rounded-lg px-4 py-2 font-medium"
           >
             View Recipe
