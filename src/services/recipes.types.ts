@@ -153,6 +153,74 @@ export interface Metric {
   unitLong: string;
 }
 
+/* Recipe Information Response */
+
+export interface RecipeInformationResponse {
+  id: number;
+  image: string;
+  imageType: string;
+  title: string;
+  readyInMinutes: number;
+  servings: number;
+  sourceUrl: string;
+  vegetarian: boolean;
+  vegan: boolean;
+  glutenFree: boolean;
+  dairyFree: boolean;
+  veryHealthy: boolean;
+  cheap: boolean;
+  veryPopular: boolean;
+  sustainable: boolean;
+  lowFodmap: boolean;
+  weightWatcherSmartPoints: number;
+  gaps: string;
+  preparationMinutes: null;
+  cookingMinutes: null;
+  aggregateLikes: number;
+  healthScore: number;
+  creditsText: string;
+  license: string;
+  sourceName: string;
+  pricePerServing: number;
+  extendedIngredients: any[];
+  summary: string;
+  cuisines: any[];
+  dishTypes: string[];
+  diets: string[];
+  occasions: any[];
+  instructions: string;
+  analyzedInstructions: AnalyzedInstruction[];
+  originalId: null;
+  spoonacularScore: number;
+  spoonacularSourceUrl: string;
+}
+
+export interface AnalyzedInstruction {
+  name: string;
+  steps: Step[];
+}
+
+export interface Step {
+  number: number;
+  step: string;
+  ingredients: Ent[];
+  equipment: Ent[];
+  length?: Length;
+}
+
+export interface Ent {
+  id: number;
+  name: string;
+  localizedName: string;
+  image: string;
+  temperature?: Length;
+}
+
+export interface Length {
+  number: number;
+  unit: string;
+}
+
 /* Mapped Recipe */
 
 export interface MappedRecipe {
@@ -160,4 +228,10 @@ export interface MappedRecipe {
   recipeTitle: string;
   recipeImage: string;
   recipeSourceUrl: string;
+}
+
+export interface MappedRecipeDetails {
+  recipeTitle: string;
+  recipeImage: string;
+  recipeIngredients: string[];
 }
