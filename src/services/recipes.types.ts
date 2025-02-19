@@ -9,9 +9,42 @@ export interface SearchRecipesResponse {
 
 export interface Result {
   id: number;
-  title: string;
   image: string;
   imageType: ImageType;
+  title: string;
+  readyInMinutes: number;
+  servings: number;
+  sourceUrl: string;
+  vegetarian: boolean;
+  vegan: boolean;
+  glutenFree: boolean;
+  dairyFree: boolean;
+  veryHealthy: boolean;
+  cheap: boolean;
+  veryPopular: boolean;
+  sustainable: boolean;
+  lowFodmap: boolean;
+  weightWatcherSmartPoints: number;
+  gaps: Gaps;
+  preparationMinutes: number | null;
+  cookingMinutes: number | null;
+  aggregateLikes: number;
+  healthScore: number;
+  creditsText: string;
+  license: null | string;
+  sourceName: string;
+  pricePerServing: number;
+  summary: string;
+  cuisines: string[];
+  dishTypes: string[];
+  diets: string[];
+  occasions: string[];
+  spoonacularScore: number;
+  spoonacularSourceUrl: string;
+}
+
+export enum Gaps {
+  No = 'no',
 }
 
 export enum ImageType {
@@ -22,6 +55,7 @@ export interface MappedRecipe {
   readonly recipeId: number;
   recipeTitle: string;
   recipeImage: string;
+  recipeSourceUrl: string;
 }
 
 /* Random Recipes Response */
