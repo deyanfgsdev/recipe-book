@@ -1,11 +1,11 @@
 import { useParams } from 'react-router';
 
 export const RecipePage = () => {
-  const { recipeSource } = useParams();
+  const { sourceUrl } = useParams();
 
   return (
     <div>
-      <h1>Recipe Details: {recipeSource}</h1>
+      <h1>Recipe Details: {sourceUrl}</h1>
     </div>
   );
 };
