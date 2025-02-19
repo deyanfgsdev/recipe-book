@@ -3,6 +3,8 @@ import type {
   SearchRecipesResponse,
   MappedRecipe as Recipe,
   RandomRecipesResponse,
+  RecipeInformationResponse,
+  MappedRecipeDetails as RecipeInformation,
 } from '@/services/recipes.types';
 
 export const getSearchRecipes = (
@@ -73,5 +75,36 @@ export const getRandomRecipes = (
       console.error(error.message);
 
       return [];
+    });
+};
+
+export const getRecipeInformation = (
+  recipeId: number
+): Promise<RecipeInformation | null> => {
+  return fetch(
+    `${SPOONACULAR_API_PREFIX}/recipes/${recipeId}/information?apiKey=${SPOONACULAR_API_KEY}`
+  )
+    .then((response) => {
+      if (!response.ok) throw new Error('Failed to fetch recipe information');
+
+      return response.json();
+    })
+    .then((data: RecipeInformationResponse) => {
+      const { title, image, extendedIngredients, instructions } = data;
+
+      if (!title || !image || !instructions) return null;
+
+      return {
+        recipeTitle: title,
+        recipeImage: image,
+        recipeIngredients:
+          extendedIngredients?.map((ingredient) => ingredient.name) ?? [],
+        recipeInstructions: instructions,
+      };
+    })
+    .catch((error: Error) => {
+      console.error(error.message);
+
+      return null;
     });
 };
