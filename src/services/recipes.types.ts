@@ -234,4 +234,5 @@ export interface MappedRecipeDetails {
   recipeTitle: string;
   recipeImage: string;
   recipeIngredients: string[];
+  recipeInstructions: string;
 }
