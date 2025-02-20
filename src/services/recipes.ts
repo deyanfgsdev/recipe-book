@@ -98,7 +98,10 @@ export const getRecipeInformation = (
         recipeTitle: title,
         recipeImage: image,
         recipeIngredients:
-          extendedIngredients?.map((ingredient) => ingredient.name) ?? [],
+          extendedIngredients?.map((ingredient) => ({
+            name: ingredient.name,
+            image: ingredient.image,
+          })) ?? [],
         recipeInstructions: instructions,
       };
     })
