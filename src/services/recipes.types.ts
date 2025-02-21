@@ -230,9 +230,13 @@ export interface MappedRecipe {
   recipeSourceUrl: string;
 }
 
+interface RecipeIngredient {
+  name: string;
+  image: string;
+}
 export interface MappedRecipeDetails {
   recipeTitle: string;
   recipeImage: string;
-  recipeIngredients: string[];
+  recipeIngredients: RecipeIngredient[];
   recipeInstructions: string;
 }
