@@ -94,14 +94,26 @@ export const getRecipeInformation = (
 
       if (!title || !image || !instructions) return null;
 
+      const recipeIngredients = extendedIngredients
+        ? [
+            ...new Set(extendedIngredients.map((ingredient) => ingredient.id)),
+          ].map((ingredientId) => {
+            const ingredientInfo = extendedIngredients.find(
+              (ingred) => ingred.id === ingredientId
+            );
+
+            return {
+              id: ingredientInfo.id,
+              name: ingredientInfo.name,
+              image: ingredientInfo.image,
+            };
+          })
+        : [];
+
       return {
         recipeTitle: title,
         recipeImage: image,
-        recipeIngredients:
-          extendedIngredients?.map((ingredient) => ({
-            name: ingredient.name,
-            image: ingredient.image,
-          })) ?? [],
+        recipeIngredients,
         recipeInstructions: instructions,
       };
     })
