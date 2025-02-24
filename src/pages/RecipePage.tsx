@@ -16,7 +16,7 @@ export const RecipePage = () => {
   const recipeId = sourceUrl
     ? getRecipeIdFromSourceUrl(sourceUrl)
     : Number(sourceUrl);
-  const { isLoading, isError, recipeDetails } = useRecipeDetails(recipeId);
+  const { isLoading, isError, recipeDetails } = useRecipeDetails({ recipeId });
 
   return (
     <div className="recipe-page-content p-4">

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { getRecipeInformation } from '@/services/recipes';
 
-export const useRecipeDetails = (recipeId: number) => {
+export const useRecipeDetails = ({ recipeId }: { recipeId: number }) => {
   const {
     isLoading,
     isError,
