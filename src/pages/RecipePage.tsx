@@ -1,6 +1,5 @@
 import { useParams } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
-import { getRecipeInformation } from '@/services/recipes';
+import { useRecipeDetails } from '@/hooks/useRecipeDetails';
 
 import { Spinner } from '@/components/Spinner/Spinner';
 
@@ -17,14 +16,7 @@ export const RecipePage = () => {
   const recipeId = sourceUrl
     ? getRecipeIdFromSourceUrl(sourceUrl)
     : Number(sourceUrl);
-  const {
-    isLoading,
-    isError,
-    data: recipeDetails,
-  } = useQuery({
-    queryKey: ['recipe', recipeId],
-    queryFn: async () => await getRecipeInformation(recipeId),
-  });
+  const { isLoading, isError, recipeDetails } = useRecipeDetails(recipeId);
 
   return (
     <div className="recipe-page-content p-4">
