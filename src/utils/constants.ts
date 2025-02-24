@@ -7,4 +7,4 @@ export const SPOONACULAR_API_PREFIX = 'https://api.spoonacular.com';
 export const SPOONACULAR_API_KEY = import.meta.env.VITE_SPOONACULAR_API_KEY;
 export const SPOONACULAR_API_INGREDIENT_IMAGE_PREFIX =
   'https://img.spoonacular.com/ingredients_';
-export const SPOONACULAR_API_INGREDIENT_IMAGE_SIZE = '250x250';
+export const SPOONACULAR_API_INGREDIENT_IMAGE_SIZE = '500x500';
