@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router';
 
 import { Header } from '@/components/Header/Header';
+import { Toaster } from 'sonner';
+
 import { FavouritesRecipesProvider } from '@/context/FavouritesRecipesProvider';
 
 export const App = () => {
@@ -12,6 +14,7 @@ export const App = () => {
           <Outlet />
         </FavouritesRecipesProvider>
       </main>
+      <Toaster richColors />
     </>
   );
 };
