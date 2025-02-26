@@ -10,7 +10,7 @@ export const CategoryCard = ({
   return (
     <li className="category-card bg-medium-beige rounded-lg p-4 [box-shadow:0_4px_4px_0_rgba(0,0,0,0.25)]">
       <Link
-        to={`/category/${name.toLowerCase().split(' ').join('-')}`}
+        to={`/categories/${name.toLowerCase().split(' ').join('-')}`}
         className="category-card__link"
       >
         <img className="category-card__image" src={imageUrl} alt={name} />
