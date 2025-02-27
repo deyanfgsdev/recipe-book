@@ -12,6 +12,7 @@ import { HomePage } from '@/pages/HomePage';
 import { FavouritesPage } from '@/pages/FavouritesPage';
 import { RecipePage } from '@/pages/RecipePage';
 import { CategoriesPage } from '@/pages/CategoriesPage';
+import { CategoryRecipesPage } from '@/pages/CategoryRecipesPage';
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,10 @@ createRoot(document.getElementById('root')!).render(
           <Route path="favourites" element={<FavouritesPage />} />
           <Route path="recipe/:sourceUrl" element={<RecipePage />} />
           <Route path="categories" element={<CategoriesPage />} />
+          <Route
+            path="categories/:categoryName"
+            element={<CategoryRecipesPage />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
