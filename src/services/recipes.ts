@@ -1,4 +1,5 @@
 import { SPOONACULAR_API_PREFIX, SPOONACULAR_API_KEY } from '@/utils/constants';
+import { capitalizeWords } from '@/utils/helpers';
 import type {
   SearchRecipesResponse,
   MappedRecipe as Recipe,
@@ -121,5 +122,44 @@ export const getRecipeInformation = (
       console.error(error.message);
 
       return null;
+    });
+};
+
+export const getRecipesByCategory = (
+  category: string,
+  addRecipeInformation = true,
+  recipesNumber = 10
+): Promise<Recipe[]> => {
+  return fetch(
+    `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&type=${category.includes('-') ? encodeURIComponent(category.split('-').join(' ')) : category}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Failed to fetch recipes by category: ${capitalizeWords(category)}`
+        );
+
+      return response.json();
+    })
+    .then((data: SearchRecipesResponse) => {
+      const { results } = data;
+
+      const mappedResults = results?.map((result) => {
+        const { id, title, image, spoonacularSourceUrl } = result;
+
+        return {
+          recipeId: id,
+          recipeTitle: title,
+          recipeImage: image,
+          recipeSourceUrl: spoonacularSourceUrl.split('/').pop() ?? '',
+        };
+      });
+
+      return mappedResults ?? [];
+    })
+    .catch((error: Error) => {
+      console.error(error.message);
+
+      return [];
     });
 };
