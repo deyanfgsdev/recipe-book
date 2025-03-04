@@ -3,16 +3,16 @@ import { Outlet } from 'react-router';
 import { Header } from '@/components/Header/Header';
 import { Toaster } from 'sonner';
 
-import { FavouritesRecipesProvider } from '@/context/FavouritesRecipesProvider';
+import { FavouriteRecipesProvider } from '@/context/FavouriteRecipesProvider';
 
 export const App = () => {
   return (
     <>
       <Header />
       <main className="main bg-light-beige pt-[68px] pb-4">
-        <FavouritesRecipesProvider>
+        <FavouriteRecipesProvider>
           <Outlet />
-        </FavouritesRecipesProvider>
+        </FavouriteRecipesProvider>
       </main>
       <Toaster richColors />
     </>

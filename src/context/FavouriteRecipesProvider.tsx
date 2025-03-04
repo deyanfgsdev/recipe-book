@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { useFavouriteRecipesReducer } from '@/hooks/useFavouriteRecipesReducer';
 
-import { FavouritesRecipesContext } from '@/context/FavouritesRecipesContext';
+import { FavouriteRecipesContext } from '@/context/FavouriteRecipesContext';
 
-export const FavouritesRecipesProvider = ({
+export const FavouriteRecipesProvider = ({
   children,
 }: {
   children: ReactNode;
@@ -16,7 +16,7 @@ export const FavouritesRecipesProvider = ({
   } = useFavouriteRecipesReducer();
 
   return (
-    <FavouritesRecipesContext.Provider
+    <FavouriteRecipesContext.Provider
       value={{
         favouriteRecipes: state,
         addFavouriteRecipe,
@@ -25,6 +25,6 @@ export const FavouritesRecipesProvider = ({
       }}
     >
       {children}
-    </FavouritesRecipesContext.Provider>
+    </FavouriteRecipesContext.Provider>
   );
 };
