@@ -17,8 +17,6 @@ export const Search = memo(
     formSearchErrorMessage: string | null;
     updateSearchRecipes: (newRecipes: Recipe[]) => void;
   }) => {
-    console.log('render search component');
-
     const queryId = useId();
     const prevSearch = useRef('');
 
