@@ -2,7 +2,15 @@ import { toast } from 'sonner';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
-export const favouriteRecipesInitialState: Recipe[] = [];
+import {
+  getFavouriteRecipesFromStorage,
+  saveFavouriteRecipeToStorage,
+  removeFavouriteRecipeFromStorage,
+  removeAllFavouriteRecipesFromStorage,
+} from '@/storage/localstorage';
+
+export const favouriteRecipesInitialState: Recipe[] =
+  getFavouriteRecipesFromStorage();
 
 type ActionType =
   | { type: 'ADD_FAVOURITE_RECIPE'; payload: Recipe }
@@ -29,6 +37,7 @@ export const favouriteRecipesReducer = (
 
       toast.success('Recipe added to favourites!');
 
+      saveFavouriteRecipeToStorage(actionPayload);
       return newState;
     }
 
@@ -40,12 +49,14 @@ export const favouriteRecipesReducer = (
 
       toast.success('Recipe removed from favourites!');
 
+      removeFavouriteRecipeFromStorage(actionPayload);
       return newState;
     }
 
     case 'REMOVE_ALL_FAVOURITE_RECIPES': {
       toast.success('All recipes removed from favourites!');
 
+      removeAllFavouriteRecipesFromStorage();
       return [];
     }
   }

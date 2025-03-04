@@ -77,3 +77,5 @@ export const RECIPE_CATEGORIES = [
     imageUrl: 'https://i.ibb.co/mC61mHVW/drink.png',
   },
 ];
+export const STORAGE_FAVOURITE_RECIPES_KEYNAME =
+  'recipe-book--favourite-recipes';
