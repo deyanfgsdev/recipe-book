@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export const useRecipesSearch = () => {
   const [query, setQuery] = useState<string>('');
@@ -35,9 +35,9 @@ export const useRecipesSearch = () => {
     setFormSearchErrorMessage(null);
   }, [query]);
 
-  const updateQuery = (newQuery: string) => {
+  const updateQuery = useCallback((newQuery: string) => {
     setQuery(newQuery);
-  };
+  }, []);
 
   return { query, updateQuery, formSearchErrorMessage };
 };

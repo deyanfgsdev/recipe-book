@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { useRandomRecipes } from '@/hooks/useRandomRecipes';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
@@ -28,9 +28,9 @@ export const HomePage = () => {
   const recipeListClassName =
     'recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6';
 
-  const updateSearchRecipes = (newSearchRecipes: Recipe[]) => {
+  const updateSearchRecipes = useCallback((newSearchRecipes: Recipe[]) => {
     setSearchRecipes(newSearchRecipes);
-  };
+  }, []);
 
   return (
     <>
