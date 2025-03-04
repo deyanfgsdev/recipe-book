@@ -1,12 +1,12 @@
 import { useContext } from 'react';
-import { FavouritesRecipesContext } from '@/context/FavouritesRecipesContext';
+import { FavouriteRecipesContext } from '@/context/FavouriteRecipesContext';
 
 export const useFavouriteRecipes = () => {
-  const context = useContext(FavouritesRecipesContext);
+  const context = useContext(FavouriteRecipesContext);
 
   if (!context) {
     throw new Error(
-      'useFavouriteRecipes must be used within a FavouritesRecipesProvider'
+      'useFavouriteRecipes must be used within a FavouriteRecipesProvider'
     );
   }
 
