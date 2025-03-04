@@ -6,7 +6,7 @@ export const MobileMenu = () => {
 
   return (
     <nav className="header__mobile-menu-nav bg-bold-green">
-      <NavLink to="/categories" end className={mobileNavLinkClassName}>
+      <NavLink to="/categories" className={mobileNavLinkClassName}>
         Categories
       </NavLink>
       <NavLink to="/favourites" end className={mobileNavLinkClassName}>

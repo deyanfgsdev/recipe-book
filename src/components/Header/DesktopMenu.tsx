@@ -5,7 +5,7 @@ export const DesktopMenu = () => {
 
   return (
     <nav className="header-right__desktop-menu-nav flex gap-2">
-      <NavLink to="/categories" end className={desktopNavLinkClassName}>
+      <NavLink to="/categories" className={desktopNavLinkClassName}>
         Categories
       </NavLink>
       <NavLink to="/favourites" end className={desktopNavLinkClassName}>
