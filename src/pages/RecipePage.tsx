@@ -36,7 +36,7 @@ export const RecipePage = () => {
   };
 
   return (
-    <div className="recipe-page-content p-4">
+    <div className="recipe-page-content mx-auto p-4 xl:max-w-7xl">
       {isLoading && <Spinner />}
       {isError && (
         <p className="no-recipe-found-message text-bold-grey text-center text-xl">
@@ -45,7 +45,7 @@ export const RecipePage = () => {
       )}
       {!isLoading && !isError && recipeDetails && (
         <>
-          <h1 className="recipe-page-content__title text-bold-grey text-center text-[32px] font-bold min-[768px]:text-[40px]">
+          <h1 className="recipe-page-content__title text-bold-grey text-center text-[32px] font-bold md:text-[40px]">
             {recipeDetails.recipeTitle}
           </h1>
           <img
@@ -71,7 +71,7 @@ export const RecipePage = () => {
             </button>
           </div>
           <section className="recipe-page-content-ingredients mt-6">
-            <h2 className="recipe-page-content-ingredients__title text-center text-[26px] font-semibold text-black min-[768px]:text-[28px]">
+            <h2 className="recipe-page-content-ingredients__title text-center text-[26px] font-semibold text-black md:text-[28px]">
               Ingredients
             </h2>
             {recipeDetails.recipeIngredients.length === 0 && (
@@ -104,7 +104,7 @@ export const RecipePage = () => {
             )}
           </section>
           <section className="recipe-page-content-instructions mt-6">
-            <h2 className="recipe-page-content-instructions__title text-center text-[26px] font-semibold text-black min-[768px]:text-[28px]">
+            <h2 className="recipe-page-content-instructions__title text-center text-[26px] font-semibold text-black md:text-[28px]">
               Instructions
             </h2>
             {recipeDetails.recipeInstructions.includes('</') ? (
