@@ -56,7 +56,7 @@ export const RecipePage = () => {
           <div className="recipe-page-content__actions mt-6 flex justify-end">
             <button
               type="button"
-              className="recipe-card-info-action cursor-pointer"
+              className="favourite-recipe-button cursor-pointer"
               onClick={
                 isFavouriteRecipe
                   ? () => removeFavouriteRecipe(mappedRecipeDetails)
