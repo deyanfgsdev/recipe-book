@@ -9,7 +9,7 @@ export const App = () => {
   return (
     <>
       <Header />
-      <main className="main bg-light-beige pt-[68px] pb-4">
+      <main className="main bg-light-beige pt-[68px]">
         <FavouriteRecipesProvider>
           <Outlet />
         </FavouriteRecipesProvider>
