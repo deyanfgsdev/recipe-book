@@ -1,12 +1,17 @@
 import { useParams } from 'react-router';
 import { useRecipeDetails } from '@/hooks/useRecipeDetails';
+import { useFavouriteRecipes } from '@/hooks/useFavouriteRecipes';
 
 import { Spinner } from '@/components/Spinner/Spinner';
+import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
+import { checkIfRecipeIsFavourite } from '@/utils/favourites';
 import {
   SPOONACULAR_API_INGREDIENT_IMAGE_PREFIX,
   SPOONACULAR_API_INGREDIENT_IMAGE_SIZE,
 } from '@/utils/constants';
+
+import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 const getRecipeIdFromSourceUrl = (sourceUrl: string) =>
   Number(sourceUrl.split('-').pop());
@@ -17,6 +22,18 @@ export const RecipePage = () => {
     ? getRecipeIdFromSourceUrl(sourceUrl)
     : Number(sourceUrl);
   const { isLoading, isError, recipeDetails } = useRecipeDetails({ recipeId });
+  const { favouriteRecipes, addFavouriteRecipe, removeFavouriteRecipe } =
+    useFavouriteRecipes();
+  const isFavouriteRecipe = checkIfRecipeIsFavourite(
+    recipeId,
+    favouriteRecipes
+  );
+  const mappedRecipeDetails: Recipe = {
+    recipeId: recipeId,
+    recipeTitle: recipeDetails?.recipeTitle ?? '',
+    recipeImage: recipeDetails?.recipeImage ?? '',
+    recipeSourceUrl: sourceUrl ?? '',
+  };
 
   return (
     <div className="recipe-page-content p-4">
@@ -36,6 +53,23 @@ export const RecipePage = () => {
             src={recipeDetails.recipeImage}
             alt={recipeDetails.recipeTitle}
           />
+          <div className="recipe-page-content__actions mt-6 flex justify-end">
+            <button
+              type="button"
+              className="recipe-card-info-action cursor-pointer"
+              onClick={
+                isFavouriteRecipe
+                  ? () => removeFavouriteRecipe(mappedRecipeDetails)
+                  : () => addFavouriteRecipe(mappedRecipeDetails)
+              }
+            >
+              {isFavouriteRecipe ? (
+                <FaHeart className="text-fav-red text-2xl" />
+              ) : (
+                <FaRegHeart className="text-fav-red text-2xl" />
+              )}
+            </button>
+          </div>
           <section className="recipe-page-content-ingredients mt-6">
             <h2 className="recipe-page-content-ingredients__title text-center text-[26px] font-semibold text-black min-[768px]:text-[28px]">
               Ingredients
