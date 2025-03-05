@@ -5,7 +5,7 @@ import { useFavouriteRecipes } from '@/hooks/useFavouriteRecipes';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
-import { RecipeCardVariant } from '@/components/RecipeCard/RecipeCard.type';
+import type { RecipeCardVariant } from '@/components/RecipeCard/RecipeCard.type';
 
 export const RecipeCard = memo(
   ({
