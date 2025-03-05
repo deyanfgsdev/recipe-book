@@ -80,7 +80,7 @@ export const RecipePage = () => {
             {recipeDetails.recipeIngredients.length > 0 && (
               <ul className="recipe-ingredients-list mt-4 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] justify-center gap-4">
                 {recipeDetails.recipeIngredients.map((ingredient) => {
-                  const { id, name, image } = ingredient;
+                  const { id, name, image, amount, unitShort } = ingredient;
 
                   return (
                     <li
@@ -93,7 +93,7 @@ export const RecipePage = () => {
                         alt={name}
                       />
                       <span className="recipe-ingredient__name text-base text-black">
-                        {name}
+                        {`${name} - ${amount} ${unitShort}`}
                       </span>
                     </li>
                   );

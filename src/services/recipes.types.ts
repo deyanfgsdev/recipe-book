@@ -234,6 +234,8 @@ interface RecipeIngredient {
   id: number;
   name: string;
   image: string;
+  amount: number;
+  unitShort: string;
 }
 export interface MappedRecipeDetails {
   recipeTitle: string;

@@ -102,11 +102,21 @@ export const getRecipeInformation = (
             const ingredientInfo = extendedIngredients.find(
               (ingred) => ingred.id === ingredientId
             );
+            const {
+              id,
+              name,
+              image,
+              measures: {
+                metric: { amount, unitShort },
+              },
+            } = ingredientInfo;
 
             return {
-              id: ingredientInfo.id,
-              name: ingredientInfo.name,
-              image: ingredientInfo.image,
+              id,
+              name,
+              image,
+              amount,
+              unitShort,
             };
           })
         : [];
