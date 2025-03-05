@@ -31,7 +31,7 @@ export const getSearchRecipes = (
           recipeId: id,
           recipeTitle: title,
           recipeImage: image,
-          recipeSourceUrl: spoonacularSourceUrl.split('/').pop() ?? '',
+          recipeSourceUrl: spoonacularSourceUrl.split('/').pop()!,
         };
       });
 
@@ -66,7 +66,7 @@ export const getRandomRecipes = (
           recipeId: id,
           recipeTitle: title,
           recipeImage: image,
-          recipeSourceUrl: spoonacularSourceUrl.split('/').pop() ?? '',
+          recipeSourceUrl: spoonacularSourceUrl.split('/').pop()!,
         };
       });
 
@@ -151,7 +151,7 @@ export const getRecipesByCategory = (
           recipeId: id,
           recipeTitle: title,
           recipeImage: image,
-          recipeSourceUrl: spoonacularSourceUrl.split('/').pop() ?? '',
+          recipeSourceUrl: spoonacularSourceUrl.split('/').pop()!,
         };
       });
 
