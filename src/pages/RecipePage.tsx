@@ -18,9 +18,7 @@ const getRecipeIdFromSourceUrl = (sourceUrl: string) =>
 
 export const RecipePage = () => {
   const { sourceUrl } = useParams();
-  const recipeId = sourceUrl
-    ? getRecipeIdFromSourceUrl(sourceUrl)
-    : Number(sourceUrl);
+  const recipeId = getRecipeIdFromSourceUrl(sourceUrl!);
   const { isLoading, isError, recipeDetails } = useRecipeDetails({ recipeId });
   const { favouriteRecipes, addFavouriteRecipe, removeFavouriteRecipe } =
     useFavouriteRecipes();

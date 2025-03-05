@@ -17,7 +17,7 @@ export const RecipeCard = memo(
     variant: RecipeCardVariant;
     isFavouriteRecipe: boolean;
   }) => {
-    const { recipeId, recipeTitle, recipeImage, recipeSourceUrl } = recipe;
+    const { recipeTitle, recipeImage, recipeSourceUrl } = recipe;
     const { addFavouriteRecipe, removeFavouriteRecipe } = useFavouriteRecipes();
 
     return (
@@ -33,7 +33,7 @@ export const RecipeCard = memo(
           </h3>
           <div className="recipe-card-info__actions mt-4 flex items-center justify-between">
             <Link
-              to={`/recipe/${recipeSourceUrl ? recipeSourceUrl : recipeId}`}
+              to={`/recipe/${recipeSourceUrl}`}
               className="recipe-card-info-action bg-yellow text-bold-grey rounded-lg px-4 py-2 font-medium"
             >
               View Recipe
