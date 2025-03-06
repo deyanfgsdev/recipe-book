@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 import { useState } from 'react';
 
-import { RecipesFiltersContext } from '@/context/RecipesFiltersContext';
+import { RecipeFiltersContext } from '@/context/RecipeFiltersContext';
 
-export const RecipesFiltersProvider = ({
+export const RecipeFiltersProvider = ({
   children,
 }: {
   children: ReactNode;
@@ -28,7 +28,7 @@ export const RecipesFiltersProvider = ({
   };
 
   return (
-    <RecipesFiltersContext.Provider
+    <RecipeFiltersContext.Provider
       value={{
         readyInMaxMinutes: filters.readyInMaxMinutes,
         dietType: filters.dietType,
@@ -37,6 +37,6 @@ export const RecipesFiltersProvider = ({
       }}
     >
       {children}
-    </RecipesFiltersContext.Provider>
+    </RecipeFiltersContext.Provider>
   );
 };
