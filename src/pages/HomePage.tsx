@@ -9,6 +9,7 @@ import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 import { checkIfRecipeIsFavourite } from '@/utils/favourites';
 
 import { Search } from '@/components/Search/Search';
+import { Filters } from '@/components/Filters/Filters';
 import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
 import { Spinner } from '@/components/Spinner/Spinner';
 
@@ -53,6 +54,9 @@ export const HomePage = () => {
             formSearchErrorMessage={formSearchErrorMessage}
             updateSearchRecipes={updateSearchRecipes}
           />
+        </section>
+        <section className="homepage-content__recipe-filters mt-6">
+          <Filters />
         </section>
         <section className="homepage-content__recipes mt-6">
           {loading && <Spinner />}
