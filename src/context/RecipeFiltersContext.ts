@@ -1,12 +1,12 @@
 import { createContext } from 'react';
 
-interface RecipesFiltersContextType {
+interface RecipeFiltersContextType {
   readyInMaxMinutes: string;
   dietType: string;
   updateReadyInMaxMinutes: (newReadyInMaxMinutes: string) => void;
   updateDietType: (newDietType: string) => void;
 }
 
-export const RecipesFiltersContext = createContext<
-  RecipesFiltersContextType | undefined
+export const RecipeFiltersContext = createContext<
+  RecipeFiltersContextType | undefined
 >(undefined);
