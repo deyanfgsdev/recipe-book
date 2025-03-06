@@ -30,8 +30,7 @@ export const RecipeFiltersProvider = ({
   return (
     <RecipeFiltersContext.Provider
       value={{
-        readyInMaxMinutes: filters.readyInMaxMinutes,
-        dietType: filters.dietType,
+        filters,
         updateReadyInMaxMinutes,
         updateDietType,
       }}
