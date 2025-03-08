@@ -4,6 +4,7 @@ import { useRandomRecipes } from '@/hooks/useRandomRecipes';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
 import { useRecipesLoading } from '@/hooks/useRecipesLoading';
 import { useFavouriteRecipes } from '@/hooks/useFavouriteRecipes';
+import { useRecipeFilters } from '@/hooks/useRecipeFilters';
 
 import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
 import { checkIfRecipeIsFavourite } from '@/utils/favourites';
@@ -23,6 +24,7 @@ export const HomePage = () => {
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const recipesListRef = useRef<HTMLUListElement | null>(null);
   const { favouriteRecipes } = useFavouriteRecipes();
+  const { filterRecipes } = useRecipeFilters();
 
   const homepageHeaderClassName =
     'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';
@@ -32,6 +34,11 @@ export const HomePage = () => {
   const updateSearchRecipes = useCallback((newSearchRecipes: Recipe[]) => {
     setSearchRecipes(newSearchRecipes);
   }, []);
+
+  const filteredRandomRecipes =
+    (randomRecipes ?? []).length > 0 ? filterRecipes(randomRecipes!) : null;
+  const filteredSearchRecipes =
+    (searchRecipes ?? []).length > 0 ? filterRecipes(searchRecipes!) : null;
 
   return (
     <>
@@ -62,19 +69,23 @@ export const HomePage = () => {
           {loading && <Spinner />}
           {!loading && (
             <>
-              {formSearchErrorMessage || searchRecipes?.length === 0 ? (
+              {formSearchErrorMessage ||
+              (searchRecipes && searchRecipes.length === 0) ||
+              filteredSearchRecipes?.length === 0 ? (
                 <p className="no-recipes-found-message text-bold-grey text-center text-xl">
                   No recipes found
                 </p>
               ) : (
                 <>
-                  {((randomRecipes && randomRecipes.length > 0) ||
-                    (searchRecipes && searchRecipes.length > 0)) && (
+                  {((filteredRandomRecipes &&
+                    filteredRandomRecipes.length > 0) ||
+                    (filteredSearchRecipes &&
+                      filteredSearchRecipes.length > 0)) && (
                     <ul ref={recipesListRef} className={recipeListClassName}>
-                      {randomRecipes &&
-                        randomRecipes.length > 0 &&
+                      {filteredRandomRecipes &&
+                        filteredRandomRecipes.length > 0 &&
                         !searchRecipes &&
-                        randomRecipes.map((recipe) => {
+                        filteredRandomRecipes.map((recipe) => {
                           const { recipeId } = recipe;
                           const isFavouriteRecipe = checkIfRecipeIsFavourite(
                             recipeId,
@@ -90,9 +101,9 @@ export const HomePage = () => {
                             />
                           );
                         })}
-                      {searchRecipes &&
-                        searchRecipes.length > 0 &&
-                        searchRecipes.map((recipe) => {
+                      {filteredSearchRecipes &&
+                        filteredSearchRecipes.length > 0 &&
+                        filteredSearchRecipes.map((recipe) => {
                           const { recipeId } = recipe;
                           const isFavouriteRecipe = checkIfRecipeIsFavourite(
                             recipeId,
