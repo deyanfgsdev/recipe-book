@@ -26,11 +26,6 @@ export const HomePage = () => {
   const { favouriteRecipes } = useFavouriteRecipes();
   const { filterRecipes } = useRecipeFilters();
 
-  const homepageHeaderClassName =
-    'homepage__header bg-cover bg-center bg-no-repeat flex items-center justify-center';
-  const recipeListClassName =
-    'recipes-list grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6';
-
   const updateSearchRecipes = useCallback((newSearchRecipes: Recipe[]) => {
     setSearchRecipes(newSearchRecipes);
   }, []);
@@ -43,7 +38,7 @@ export const HomePage = () => {
   return (
     <>
       <header
-        className={homepageHeaderClassName}
+        className="homepage__header flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${isMobileDevice ? MOBILE_HEADER_IMAGE : DESKTOP_HEADER_IMAGE})`,
           height: isMobileDevice ? '198px' : '241px',
@@ -81,7 +76,10 @@ export const HomePage = () => {
                     filteredRandomRecipes.length > 0) ||
                     (filteredSearchRecipes &&
                       filteredSearchRecipes.length > 0)) && (
-                    <ul ref={recipesListRef} className={recipeListClassName}>
+                    <ul
+                      ref={recipesListRef}
+                      className="recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6"
+                    >
                       {filteredRandomRecipes &&
                         filteredRandomRecipes.length > 0 &&
                         !searchRecipes &&
