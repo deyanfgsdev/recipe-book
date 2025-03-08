@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useId, ChangeEvent } from 'react';
 import { useRecipeFilters } from '@/hooks/useRecipeFilters';
 
 export const Filters = () => {
@@ -8,15 +8,13 @@ export const Filters = () => {
     useRecipeFilters();
 
   const handleChangeReadyInMaxMinutes = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>
   ) => {
     const { value: newReadyInMaxMinutes } = event.target;
     updateReadyInMaxMinutes(newReadyInMaxMinutes);
   };
 
-  const handleChangeDietType = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleChangeDietType = (event: ChangeEvent<HTMLSelectElement>) => {
     const { value: newDietType } = event.target;
     updateDietType(newDietType);
   };
