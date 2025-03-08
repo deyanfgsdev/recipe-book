@@ -22,7 +22,6 @@ export const HomePage = () => {
   const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
   const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
-  const recipesListRef = useRef<HTMLUListElement | null>(null);
   const { favouriteRecipes } = useFavouriteRecipes();
   const { filterRecipes } = useRecipeFilters();
 
@@ -76,10 +75,7 @@ export const HomePage = () => {
                     filteredRandomRecipes.length > 0) ||
                     (filteredSearchRecipes &&
                       filteredSearchRecipes.length > 0)) && (
-                    <ul
-                      ref={recipesListRef}
-                      className="recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6"
-                    >
+                    <ul className="recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6">
                       {filteredRandomRecipes &&
                         filteredRandomRecipes.length > 0 &&
                         !searchRecipes &&
