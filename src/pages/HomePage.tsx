@@ -63,7 +63,8 @@ export const HomePage = () => {
           {loading && <Spinner />}
           {!loading && (
             <>
-              {formSearchErrorMessage ||
+              {filteredRandomRecipes?.length === 0 ||
+              formSearchErrorMessage ||
               (searchRecipes && searchRecipes.length === 0) ||
               filteredSearchRecipes?.length === 0 ? (
                 <p className="no-recipes-found-message text-bold-grey text-center text-xl">
