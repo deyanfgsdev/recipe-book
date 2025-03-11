@@ -23,21 +23,19 @@ export const HomePage = () => {
   const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const { favouriteRecipes } = useFavouriteRecipes();
-  const { filterRecipes } = useRecipeFilters();
+  const { getFilteredRecipes } = useRecipeFilters();
 
   const updateSearchRecipes = useCallback((newSearchRecipes: Recipe[]) => {
     setSearchRecipes(newSearchRecipes);
   }, []);
 
-  const filteredRandomRecipes = useMemo(() => {
-    return (randomRecipes ?? []).length > 0
-      ? filterRecipes(randomRecipes!)
-      : null;
-  }, [randomRecipes, filterRecipes]);
+  const filteredRandomRecipes = useMemo(
+    () => getFilteredRecipes(randomRecipes),
+    [randomRecipes, getFilteredRecipes]
+  );
   const filteredSearchRecipes = useMemo(
-    () =>
-      (searchRecipes ?? []).length > 0 ? filterRecipes(searchRecipes!) : null,
-    [searchRecipes, filterRecipes]
+    () => getFilteredRecipes(searchRecipes),
+    [searchRecipes, getFilteredRecipes]
   );
 
   return (
