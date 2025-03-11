@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { useRandomRecipes } from '@/hooks/useRandomRecipes';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
@@ -29,10 +29,16 @@ export const HomePage = () => {
     setSearchRecipes(newSearchRecipes);
   }, []);
 
-  const filteredRandomRecipes =
-    (randomRecipes ?? []).length > 0 ? filterRecipes(randomRecipes!) : null;
-  const filteredSearchRecipes =
-    (searchRecipes ?? []).length > 0 ? filterRecipes(searchRecipes!) : null;
+  const filteredRandomRecipes = useMemo(() => {
+    return (randomRecipes ?? []).length > 0
+      ? filterRecipes(randomRecipes!)
+      : null;
+  }, [randomRecipes, filterRecipes]);
+  const filteredSearchRecipes = useMemo(
+    () =>
+      (searchRecipes ?? []).length > 0 ? filterRecipes(searchRecipes!) : null,
+    [searchRecipes, filterRecipes]
+  );
 
   return (
     <>
