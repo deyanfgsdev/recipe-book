@@ -47,9 +47,19 @@ export const useRecipeFilters = () => {
     [filters]
   );
 
+  const getFilteredRecipes = useCallback(
+    (recipes: null | Recipe[]) => {
+      if (!recipes || !recipes.length) return null;
+
+      return filterRecipes(recipes);
+    },
+    [filterRecipes]
+  );
+
   return {
     filters,
     filterRecipes,
+    getFilteredRecipes,
     updateReadyInMaxMinutes,
     updateDietType,
   };
