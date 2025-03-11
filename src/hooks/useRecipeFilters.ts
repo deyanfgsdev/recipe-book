@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 import { RecipeFiltersContext } from '@/context/RecipeFiltersContext';
 
 import type { MappedRecipe as Recipe } from '@/services/recipes.types';
@@ -22,27 +22,30 @@ export const useRecipeFilters = () => {
 
   const { filters, updateReadyInMaxMinutes, updateDietType } = context;
 
-  const filterRecipes = (recipes: Recipe[]) => {
-    return recipes.filter((recipe) => {
-      const passesTimeFilter =
-        recipe.recipeReadyInMinutes <= Number(filters.readyInMaxMinutes);
+  const filterRecipes = useCallback(
+    (recipes: Recipe[]) => {
+      return recipes.filter((recipe) => {
+        const passesTimeFilter =
+          recipe.recipeReadyInMinutes <= Number(filters.readyInMaxMinutes);
 
-      if (filters.dietType === 'all') return passesTimeFilter;
+        if (filters.dietType === 'all') return passesTimeFilter;
 
-      const dietPropertyMap: DietPropertyMap = {
-        vegetarian: 'isVegetarianRecipe',
-        vegan: 'isVeganRecipe',
-        glutenFree: 'isGlutenFreeRecipe',
-        dairyFree: 'isDairyFreeRecipe',
-        veryHealthy: 'isVeryHealthyRecipe',
-      };
+        const dietPropertyMap: DietPropertyMap = {
+          vegetarian: 'isVegetarianRecipe',
+          vegan: 'isVeganRecipe',
+          glutenFree: 'isGlutenFreeRecipe',
+          dairyFree: 'isDairyFreeRecipe',
+          veryHealthy: 'isVeryHealthyRecipe',
+        };
 
-      const propertyName =
-        dietPropertyMap[filters.dietType as keyof DietPropertyMap];
+        const propertyName =
+          dietPropertyMap[filters.dietType as keyof DietPropertyMap];
 
-      return passesTimeFilter && recipe[propertyName as keyof Recipe];
-    });
-  };
+        return passesTimeFilter && recipe[propertyName as keyof Recipe];
+      });
+    },
+    [filters]
+  );
 
   return {
     filters,
