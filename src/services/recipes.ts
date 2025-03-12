@@ -189,13 +189,30 @@ export const getRecipesByCategory = (
       const { results } = data;
 
       const mappedResults = results?.map((result) => {
-        const { id, title, image, spoonacularSourceUrl } = result;
+        const {
+          id,
+          title,
+          image,
+          spoonacularSourceUrl,
+          readyInMinutes,
+          vegetarian,
+          vegan,
+          glutenFree,
+          dairyFree,
+          veryHealthy,
+        } = result;
 
         return {
           recipeId: id,
           recipeTitle: title,
           recipeImage: image,
           recipeSourceUrl: spoonacularSourceUrl.split('/').pop()!,
+          recipeReadyInMinutes: readyInMinutes,
+          isVegetarianRecipe: vegetarian,
+          isVeganRecipe: vegan,
+          isGlutenFreeRecipe: glutenFree,
+          isDairyFreeRecipe: dairyFree,
+          isVeryHealthyRecipe: veryHealthy,
         };
       });
 
