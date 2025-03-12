@@ -9,7 +9,7 @@ export const RecipeFiltersProvider = ({
   children: ReactNode;
 }) => {
   const [filters, setFilters] = useState({
-    readyInMaxMinutes: '30',
+    readyInMaxMinutes: '45',
     dietType: 'all',
   });
 
