@@ -18,7 +18,7 @@ import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const HomePage = () => {
   const { isMobileDevice } = useIsMobileDevice();
-  const { randomRecipes } = useRandomRecipes();
+  const { randomRecipes, getMoreRandomRecipes } = useRandomRecipes();
   const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
   const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
@@ -64,66 +64,79 @@ export const HomePage = () => {
           <Filters />
         </section>
         <section className="homepage-content__recipes mt-6">
-          {loading && <Spinner />}
-          {!loading && (
+          {filteredRandomRecipes?.length === 0 ||
+          formSearchErrorMessage ||
+          (searchRecipes && searchRecipes.length === 0) ||
+          filteredSearchRecipes?.length === 0 ? (
+            <p className="no-recipes-found-message text-bold-grey text-center text-xl">
+              No recipes found
+            </p>
+          ) : (
             <>
-              {filteredRandomRecipes?.length === 0 ||
-              formSearchErrorMessage ||
-              (searchRecipes && searchRecipes.length === 0) ||
-              filteredSearchRecipes?.length === 0 ? (
-                <p className="no-recipes-found-message text-bold-grey text-center text-xl">
-                  No recipes found
-                </p>
-              ) : (
-                <>
-                  {((filteredRandomRecipes &&
-                    filteredRandomRecipes.length > 0) ||
-                    (filteredSearchRecipes &&
-                      filteredSearchRecipes.length > 0)) && (
-                    <ul className="recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6">
-                      {filteredRandomRecipes &&
-                        filteredRandomRecipes.length > 0 &&
-                        !searchRecipes &&
-                        filteredRandomRecipes.map((recipe) => {
-                          const { recipeId } = recipe;
-                          const isFavouriteRecipe = checkIfRecipeIsFavourite(
-                            recipeId,
-                            favouriteRecipes
-                          );
+              {((filteredRandomRecipes && filteredRandomRecipes.length > 0) ||
+                (filteredSearchRecipes &&
+                  filteredSearchRecipes.length > 0)) && (
+                <ul className="recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6">
+                  {filteredRandomRecipes &&
+                    filteredRandomRecipes.length > 0 &&
+                    !searchRecipes &&
+                    filteredRandomRecipes.map((recipe) => {
+                      const { recipeId } = recipe;
+                      const isFavouriteRecipe = checkIfRecipeIsFavourite(
+                        recipeId,
+                        favouriteRecipes
+                      );
 
-                          return (
-                            <RecipeCard
-                              key={recipeId}
-                              recipe={recipe}
-                              variant="random"
-                              isFavouriteRecipe={isFavouriteRecipe}
-                            />
-                          );
-                        })}
-                      {filteredSearchRecipes &&
-                        filteredSearchRecipes.length > 0 &&
-                        filteredSearchRecipes.map((recipe) => {
-                          const { recipeId } = recipe;
-                          const isFavouriteRecipe = checkIfRecipeIsFavourite(
-                            recipeId,
-                            favouriteRecipes
-                          );
+                      return (
+                        <RecipeCard
+                          key={recipeId}
+                          recipe={recipe}
+                          variant="random"
+                          isFavouriteRecipe={isFavouriteRecipe}
+                        />
+                      );
+                    })}
+                  {filteredSearchRecipes &&
+                    filteredSearchRecipes.length > 0 &&
+                    filteredSearchRecipes.map((recipe) => {
+                      const { recipeId } = recipe;
+                      const isFavouriteRecipe = checkIfRecipeIsFavourite(
+                        recipeId,
+                        favouriteRecipes
+                      );
 
-                          return (
-                            <RecipeCard
-                              key={recipeId}
-                              recipe={recipe}
-                              variant="result"
-                              isFavouriteRecipe={isFavouriteRecipe}
-                            />
-                          );
-                        })}
-                    </ul>
-                  )}
-                </>
+                      return (
+                        <RecipeCard
+                          key={recipeId}
+                          recipe={recipe}
+                          variant="result"
+                          isFavouriteRecipe={isFavouriteRecipe}
+                        />
+                      );
+                    })}
+                </ul>
               )}
             </>
           )}
+          {loading && <Spinner />}
+          {!loading &&
+            ((filteredRandomRecipes && filteredRandomRecipes.length > 0) ||
+              (filteredSearchRecipes && filteredSearchRecipes.length > 0)) && (
+              <div className="load-more-button-container mt-6 flex justify-center">
+                <button
+                  className="load-more-button bg-bold-green text-yellow cursor-pointer rounded-lg px-4 py-2 font-medium"
+                  onClick={
+                    filteredSearchRecipes
+                      ? () => {
+                          console.log('searchRecipes');
+                        }
+                      : () => getMoreRandomRecipes()
+                  }
+                >
+                  Load more
+                </button>
+              </div>
+            )}
         </section>
       </div>
     </>
