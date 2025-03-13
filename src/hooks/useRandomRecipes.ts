@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { getRandomRecipes } from '@/services/recipes';
 
@@ -17,25 +17,24 @@ export const useRandomRecipes = () => {
       });
   }, []);
 
-  const getMoreRandomRecipes = () => {
+  const getMoreRandomRecipes = useCallback(() => {
     getRandomRecipes()
       .then((newRandomRecipes) => {
-        const uniqueNewRandomRecipes = newRandomRecipes.filter(
-          (newRandomRecipe) =>
-            !randomRecipes.some(
-              (recipe) => recipe.recipeId === newRandomRecipe.recipeId
-            )
-        );
+        setRandomRecipes((prevState) => {
+          const uniqueNewRandomRecipes = newRandomRecipes.filter(
+            (newRandomRecipe) =>
+              !prevState.some(
+                (recipe) => recipe.recipeId === newRandomRecipe.recipeId
+              )
+          );
 
-        setRandomRecipes((prevState) => [
-          ...prevState,
-          ...uniqueNewRandomRecipes,
-        ]);
+          return [...prevState, ...uniqueNewRandomRecipes];
+        });
       })
       .catch((error: Error) => {
         console.error(error.message);
       });
-  };
+  }, []);
 
   return { randomRecipes, getMoreRandomRecipes };
 };
