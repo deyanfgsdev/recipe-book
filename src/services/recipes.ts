@@ -61,12 +61,9 @@ export const getSearchRecipes = (
     });
 };
 
-export const getRandomRecipes = (
-  addRecipeInformation = true,
-  recipesNumber = 10
-): Promise<Recipe[]> => {
+export const getRandomRecipes = (recipesNumber = 10): Promise<Recipe[]> => {
   return fetch(
-    `${SPOONACULAR_API_PREFIX}/recipes/random?apiKey=${SPOONACULAR_API_KEY}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}`
+    `${SPOONACULAR_API_PREFIX}/recipes/random?apiKey=${SPOONACULAR_API_KEY}&number=${recipesNumber}`
   )
     .then((response) => {
       if (!response.ok) throw new Error('Failed to fetch random recipes');
