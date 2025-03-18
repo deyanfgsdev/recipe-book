@@ -11,10 +11,11 @@ import type {
 export const getSearchRecipes = (
   query: string,
   addRecipeInformation = true,
-  recipesNumber = 10
+  recipesNumber = 10,
+  offset = 0
 ): Promise<Recipe[]> => {
   return fetch(
-    `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}`
+    `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}&offset=${offset}`
   )
     .then((response) => {
       if (!response.ok) throw new Error('Failed to fetch recipes');
