@@ -18,7 +18,8 @@ import type { MappedRecipe as Recipe } from '@/services/recipes.types';
 
 export const HomePage = () => {
   const { isMobileDevice } = useIsMobileDevice();
-  const { randomRecipes, getMoreRandomRecipes } = useRandomRecipes();
+  const { randomRecipes, getMoreRandomRecipes, hasReachedMaxRandomRecipes } =
+    useRandomRecipes();
   const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
   const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
@@ -120,7 +121,9 @@ export const HomePage = () => {
           )}
           {loading && <Spinner />}
           {!loading &&
-            ((filteredRandomRecipes && filteredRandomRecipes.length > 0) ||
+            ((filteredRandomRecipes &&
+              filteredRandomRecipes.length > 0 &&
+              !hasReachedMaxRandomRecipes) ||
               (filteredSearchRecipes && filteredSearchRecipes.length > 0)) && (
               <div className="load-more-button-container mt-6 flex justify-center">
                 <button

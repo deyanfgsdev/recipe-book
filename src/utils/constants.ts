@@ -79,3 +79,5 @@ export const RECIPE_CATEGORIES = [
 ];
 export const STORAGE_FAVOURITE_RECIPES_KEYNAME =
   'recipe-book--favourite-recipes';
+export const MAX_RANDOM_RECIPES = 100;
+export const RECIPES_BATCH_SIZE = 10;
