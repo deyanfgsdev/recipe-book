@@ -1,7 +1,8 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { useRandomRecipes } from '@/hooks/useRandomRecipes';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
+import { useSearchRecipes } from '@/hooks/useSearchRecipes';
 import { useRecipesLoading } from '@/hooks/useRecipesLoading';
 import { useFavouriteRecipes } from '@/hooks/useFavouriteRecipes';
 import { useRecipeFilters } from '@/hooks/useRecipeFilters';
@@ -14,21 +15,15 @@ import { Filters } from '@/components/Filters/Filters';
 import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
 import { Spinner } from '@/components/Spinner/Spinner';
 
-import type { MappedRecipe as Recipe } from '@/services/recipes.types';
-
 export const HomePage = () => {
   const { isMobileDevice } = useIsMobileDevice();
   const { randomRecipes, getMoreRandomRecipes, hasReachedMaxRandomRecipes } =
     useRandomRecipes();
   const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
-  const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
+  const { searchRecipes, updateSearchRecipes } = useSearchRecipes();
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const { favouriteRecipes } = useFavouriteRecipes();
   const { getFilteredRecipes } = useRecipeFilters();
-
-  const updateSearchRecipes = useCallback((newSearchRecipes: Recipe[]) => {
-    setSearchRecipes(newSearchRecipes);
-  }, []);
 
   const filteredRandomRecipes = useMemo(
     () => getFilteredRecipes(randomRecipes),
