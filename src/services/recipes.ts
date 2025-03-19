@@ -3,6 +3,7 @@ import { capitalizeWords } from '@/utils/helpers';
 import type {
   SearchRecipesResponse,
   MappedRecipe as Recipe,
+  SearchRecipesData,
   RandomRecipesResponse,
   RecipeInformationResponse,
   MappedRecipeDetails as RecipeInformation,
@@ -11,11 +12,13 @@ import type {
 export const getSearchRecipes = (
   query: string,
   addRecipeInformation = true,
-  recipesNumber = 10,
-  offset = 0
-): Promise<Recipe[]> => {
+  expectedResultsNumber = 10,
+  page = 0
+): Promise<SearchRecipesData> => {
+  const offset = page * expectedResultsNumber;
+
   return fetch(
-    `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&addRecipeInformation=${addRecipeInformation}&number=${recipesNumber}&offset=${offset}`
+    `${SPOONACULAR_API_PREFIX}/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&addRecipeInformation=${addRecipeInformation}&number=${expectedResultsNumber}&offset=${offset}`
   )
     .then((response) => {
       if (!response.ok) throw new Error('Failed to fetch recipes');
@@ -23,7 +26,7 @@ export const getSearchRecipes = (
       return response.json();
     })
     .then((data: SearchRecipesResponse) => {
-      const { results } = data;
+      const { results, totalResults } = data;
 
       const mappedResults = results?.map((result) => {
         const {
@@ -53,12 +56,12 @@ export const getSearchRecipes = (
         };
       });
 
-      return mappedResults ?? [];
+      return { recipes: mappedResults ?? [], totalResults };
     })
     .catch((error: Error) => {
       console.error(error.message);
 
-      return [];
+      return { recipes: [], totalResults: 0 };
     });
 };
 

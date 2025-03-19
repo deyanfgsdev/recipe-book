@@ -21,8 +21,8 @@ export const Search = memo(
     const prevSearch = useRef('');
 
     const debounceGetSearchRecipes = debounce((newQuery: string) => {
-      getSearchRecipes(newQuery).then((newSearchRecipes) => {
-        updateSearchRecipes(newSearchRecipes);
+      getSearchRecipes(newQuery).then(({ recipes }) => {
+        updateSearchRecipes(recipes);
       });
     }, 300);
 

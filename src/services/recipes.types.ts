@@ -236,6 +236,11 @@ export interface MappedRecipe {
   isVeryHealthyRecipe: boolean;
 }
 
+export interface SearchRecipesData {
+  recipes: MappedRecipe[];
+  totalResults: number;
+}
+
 interface RecipeIngredient {
   id: number;
   name: string;
