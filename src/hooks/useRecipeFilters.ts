@@ -23,7 +23,9 @@ export const useRecipeFilters = () => {
   const { filters, updateReadyInMaxMinutes, updateDietType } = context;
 
   const filterRecipes = useCallback(
-    (recipes: Recipe[]) => {
+    (recipes: null | Recipe[]) => {
+      if (!recipes || !recipes.length) return null;
+
       return recipes.filter((recipe) => {
         const passesTimeFilter =
           recipe.recipeReadyInMinutes <= Number(filters.readyInMaxMinutes);
@@ -47,19 +49,9 @@ export const useRecipeFilters = () => {
     [filters]
   );
 
-  const getFilteredRecipes = useCallback(
-    (recipes: null | Recipe[]) => {
-      if (!recipes || !recipes.length) return null;
-
-      return filterRecipes(recipes);
-    },
-    [filterRecipes]
-  );
-
   return {
     filters,
     filterRecipes,
-    getFilteredRecipes,
     updateReadyInMaxMinutes,
     updateDietType,
   };

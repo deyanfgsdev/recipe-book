@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useIsMobileDevice } from '@/hooks/useIsMobileDevice';
 import { useRandomRecipes } from '@/hooks/useRandomRecipes';
 import { useRecipesSearch } from '@/hooks/useRecipesSearch';
@@ -20,18 +20,23 @@ export const HomePage = () => {
   const { randomRecipes, getMoreRandomRecipes, hasReachedMaxRandomRecipes } =
     useRandomRecipes();
   const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
-  const { searchRecipes, updateSearchRecipes } = useSearchRecipes();
+  const {
+    searchRecipes,
+    updateSearchRecipes,
+    hasMoreSearchRecipes,
+    getMoreSearchRecipes,
+  } = useSearchRecipes({ query });
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const { favouriteRecipes } = useFavouriteRecipes();
-  const { getFilteredRecipes } = useRecipeFilters();
+  const { filterRecipes } = useRecipeFilters();
 
   const filteredRandomRecipes = useMemo(
-    () => getFilteredRecipes(randomRecipes),
-    [randomRecipes, getFilteredRecipes]
+    () => filterRecipes(randomRecipes),
+    [randomRecipes, filterRecipes]
   );
   const filteredSearchRecipes = useMemo(
-    () => getFilteredRecipes(searchRecipes),
-    [searchRecipes, getFilteredRecipes]
+    () => filterRecipes(searchRecipes),
+    [searchRecipes, filterRecipes]
   );
 
   return (
@@ -119,15 +124,15 @@ export const HomePage = () => {
             ((filteredRandomRecipes &&
               filteredRandomRecipes.length > 0 &&
               !hasReachedMaxRandomRecipes) ||
-              (filteredSearchRecipes && filteredSearchRecipes.length > 0)) && (
+              (filteredSearchRecipes &&
+                filteredSearchRecipes.length > 0 &&
+                hasMoreSearchRecipes)) && (
               <div className="load-more-button-container mt-6 flex justify-center">
                 <button
                   className="load-more-button bg-bold-green text-yellow cursor-pointer rounded-lg px-4 py-2 font-medium"
                   onClick={
                     filteredSearchRecipes
-                      ? () => {
-                          console.log('searchRecipes');
-                        }
+                      ? () => getMoreSearchRecipes()
                       : () => getMoreRandomRecipes()
                   }
                 >
