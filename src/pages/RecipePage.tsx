@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 import { useRecipeDetails } from '@/hooks/useRecipeDetails';
 import { useFavouriteRecipes } from '@/hooks/useFavouriteRecipes';
+import DOMPurify from 'dompurify';
 
 import { Spinner } from '@/components/Spinner/Spinner';
 import { FaRegHeart, FaHeart } from 'react-icons/fa';
@@ -108,7 +109,7 @@ export const RecipePage = () => {
             {recipeDetails.recipeInstructions.includes('</') ? (
               <div
                 dangerouslySetInnerHTML={{
-                  __html: recipeDetails.recipeInstructions,
+                  __html: DOMPurify.sanitize(recipeDetails.recipeInstructions),
                 }}
                 className="recipe-page-content-instructions__details mt-4 text-base text-black"
               />
