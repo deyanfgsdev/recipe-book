@@ -6,18 +6,18 @@ export const Search = memo(
     query,
     updateQuery,
     formSearchErrorMessage,
-    updateSearchRecipes,
+    refetch,
   }: {
     query: string;
     updateQuery: (newQuery: string) => void;
     formSearchErrorMessage: string | null;
-    updateSearchRecipes: () => void;
+    refetch: () => void;
   }) => {
     const queryId = useId();
     const prevSearch = useRef('');
 
     const debounceGetSearchRecipes = debounce(() => {
-      updateSearchRecipes();
+      refetch();
     }, 300);
 
     const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {

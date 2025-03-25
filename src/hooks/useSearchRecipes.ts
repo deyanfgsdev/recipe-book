@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getSearchRecipes } from '@/services/recipes';
 
-export const useSearchRecipesQuery = ({ query }: { query: string }) => {
+export const useSearchRecipes = ({ query }: { query: string }) => {
   const { data, hasNextPage, fetchNextPage, refetch } = useInfiniteQuery({
     queryKey: ['searchRecipes', query],
     queryFn: async ({ pageParam }) =>
@@ -16,5 +16,10 @@ export const useSearchRecipesQuery = ({ query }: { query: string }) => {
 
   const searchRecipes = data?.pages?.flatMap((page) => page.recipes) ?? [];
 
-  return { searchRecipes, hasNextPage, fetchNextPage, refetch };
+  return {
+    searchRecipes,
+    hasMoreSearchRecipes: hasNextPage,
+    getMoreSearchRecipes: fetchNextPage,
+    refetch,
+  };
 };

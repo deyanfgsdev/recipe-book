@@ -20,12 +20,8 @@ export const HomePage = () => {
   const { randomRecipes, getMoreRandomRecipes, hasReachedMaxRandomRecipes } =
     useRandomRecipes();
   const { query, updateQuery, formSearchErrorMessage } = useRecipesSearch();
-  const {
-    searchRecipes,
-    updateSearchRecipes,
-    hasMoreSearchRecipes,
-    getMoreSearchRecipes,
-  } = useSearchRecipes({ query });
+  const { searchRecipes, hasMoreSearchRecipes, getMoreSearchRecipes, refetch } =
+    useSearchRecipes({ query });
   const { loading } = useRecipesLoading({ randomRecipes, searchRecipes });
   const { favouriteRecipes } = useFavouriteRecipes();
   const { filterRecipes } = useRecipeFilters();
@@ -58,7 +54,7 @@ export const HomePage = () => {
             query={query}
             updateQuery={updateQuery}
             formSearchErrorMessage={formSearchErrorMessage}
-            updateSearchRecipes={updateSearchRecipes}
+            refetch={refetch}
           />
         </section>
         <section className="homepage-content__recipe-filters mt-6">
