@@ -1,13 +1,28 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
+import { useSearchRecipesQuery } from '@/hooks/useSearchRecipesQuery';
 
-import type { MappedRecipe as Recipe } from '@/services/recipes.types';
+export const useSearchRecipes = ({ query }: { query: string }) => {
+  const {
+    searchRecipes,
+    hasNextPage: hasMoreSearchRecipes,
+    fetchNextPage: fetchMoreSearchRecipes,
+    refetch,
+  } = useSearchRecipesQuery({
+    query,
+  });
 
-export const useSearchRecipes = () => {
-  const [searchRecipes, setSearchRecipes] = useState<null | Recipe[]>(null);
+  const updateSearchRecipes = useCallback(() => {
+    refetch();
+  }, [refetch]);
 
-  const updateSearchRecipes = useCallback((newSearchRecipes: Recipe[]) => {
-    setSearchRecipes(newSearchRecipes);
-  }, []);
+  const getMoreSearchRecipes = useCallback(() => {
+    fetchMoreSearchRecipes();
+  }, [fetchMoreSearchRecipes]);
 
-  return { searchRecipes, updateSearchRecipes };
+  return {
+    searchRecipes,
+    updateSearchRecipes,
+    hasMoreSearchRecipes,
+    getMoreSearchRecipes,
+  };
 };

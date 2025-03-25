@@ -1,10 +1,6 @@
 import { useRef, useId, memo } from 'react';
 import debounce from 'just-debounce-it';
 
-import { getSearchRecipes } from '@/services/recipes';
-
-import type { MappedRecipe as Recipe } from '@/services/recipes.types';
-
 export const Search = memo(
   ({
     query,
@@ -15,15 +11,13 @@ export const Search = memo(
     query: string;
     updateQuery: (newQuery: string) => void;
     formSearchErrorMessage: string | null;
-    updateSearchRecipes: (newRecipes: Recipe[]) => void;
+    updateSearchRecipes: () => void;
   }) => {
     const queryId = useId();
     const prevSearch = useRef('');
 
-    const debounceGetSearchRecipes = debounce((newQuery: string) => {
-      getSearchRecipes(newQuery).then(({ recipes }) => {
-        updateSearchRecipes(recipes);
-      });
+    const debounceGetSearchRecipes = debounce(() => {
+      updateSearchRecipes();
     }, 300);
 
     const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +30,7 @@ export const Search = memo(
 
       prevSearch.current = newQuery;
       updateQuery(newQuery);
-      debounceGetSearchRecipes(newQuery);
+      debounceGetSearchRecipes();
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +38,7 @@ export const Search = memo(
 
       if (query === prevSearch.current) return;
 
-      debounceGetSearchRecipes(query);
+      debounceGetSearchRecipes();
     };
 
     return (
