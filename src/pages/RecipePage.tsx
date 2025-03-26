@@ -28,7 +28,7 @@ export const RecipePage = () => {
     favouriteRecipes
   );
   const mappedRecipeDetails: Recipe = {
-    recipeId: recipeId,
+    recipeId,
     recipeTitle: recipeDetails?.recipeTitle ?? '',
     recipeImage: recipeDetails?.recipeImage ?? '',
     recipeSourceUrl: sourceUrl ?? '',

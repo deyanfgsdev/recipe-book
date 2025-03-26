@@ -228,12 +228,12 @@ export interface MappedRecipe {
   recipeTitle: string;
   recipeImage: string;
   recipeSourceUrl: string;
-  recipeReadyInMinutes: number;
-  isVegetarianRecipe: boolean;
-  isVeganRecipe: boolean;
-  isGlutenFreeRecipe: boolean;
-  isDairyFreeRecipe: boolean;
-  isVeryHealthyRecipe: boolean;
+  recipeReadyInMinutes?: number;
+  isVegetarianRecipe?: boolean;
+  isVeganRecipe?: boolean;
+  isGlutenFreeRecipe?: boolean;
+  isDairyFreeRecipe?: boolean;
+  isVeryHealthyRecipe?: boolean;
 }
 
 export interface SearchRecipesData {
