@@ -28,7 +28,7 @@ export const useRecipeFilters = () => {
 
       return recipes.filter((recipe) => {
         const passesTimeFilter =
-          recipe.recipeReadyInMinutes <= Number(filters.readyInMaxMinutes);
+          recipe.recipeReadyInMinutes! <= Number(filters.readyInMaxMinutes);
 
         if (filters.dietType === 'all') return passesTimeFilter;
 
