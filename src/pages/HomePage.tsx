@@ -124,7 +124,7 @@ export const HomePage = () => {
                 !hasReachedMaxRandomRecipes)) && (
               <div className="load-more-button-container mt-6 flex justify-center">
                 <button
-                  className={`${filteredSearchRecipes ? 'search' : 'random'}-recipes-load-more-button bg-bold-green text-yellow cursor-pointer rounded-lg px-4 py-2 font-medium`}
+                  className={`${filteredSearchRecipes.length > 0 ? 'search' : 'random'}-recipes-load-more-button bg-bold-green text-yellow cursor-pointer rounded-lg px-4 py-2 font-medium`}
                   onClick={
                     query.length >= 3
                       ? () => getMoreSearchRecipes()
