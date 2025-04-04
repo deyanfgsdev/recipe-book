@@ -37,11 +37,6 @@ export const HomePage = () => {
       [searchRecipes, filterRecipes]
     ) ?? [];
 
-  console.log({
-    filteredRandomRecipes,
-    filteredSearchRecipes,
-  });
-
   return (
     <>
       <header
