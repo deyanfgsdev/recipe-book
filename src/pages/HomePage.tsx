@@ -76,6 +76,7 @@ export const HomePage = () => {
                 filteredSearchRecipes.length > 0) && (
                 <ul className="recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6">
                   {filteredRandomRecipes.length > 0 &&
+                    filteredSearchRecipes.length === 0 &&
                     filteredRandomRecipes.map((recipe) => {
                       const { recipeId } = recipe;
                       const isFavouriteRecipe = checkIfRecipeIsFavourite(
