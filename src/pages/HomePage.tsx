@@ -26,14 +26,16 @@ export const HomePage = () => {
   const { favouriteRecipes } = useFavouriteRecipes();
   const { filterRecipes } = useRecipeFilters();
 
-  const filteredRandomRecipes = useMemo(
-    () => filterRecipes(randomRecipes),
-    [randomRecipes, filterRecipes]
-  );
-  const filteredSearchRecipes = useMemo(
-    () => filterRecipes(searchRecipes),
-    [searchRecipes, filterRecipes]
-  );
+  const filteredRandomRecipes =
+    useMemo(
+      () => filterRecipes(randomRecipes),
+      [randomRecipes, filterRecipes]
+    ) ?? [];
+  const filteredSearchRecipes =
+    useMemo(
+      () => filterRecipes(searchRecipes),
+      [searchRecipes, filterRecipes]
+    ) ?? [];
 
   console.log({
     filteredRandomRecipes,
@@ -68,20 +70,17 @@ export const HomePage = () => {
         <section className="homepage-content__recipes mt-6">
           {!loading &&
           (formSearchErrorMessage ||
-            (query.length >= 3 && !filteredSearchRecipes) ||
-            (!query && !filteredRandomRecipes)) ? (
+            (query.length >= 3 && filteredSearchRecipes.length === 0) ||
+            (!query && filteredRandomRecipes.length === 0)) ? (
             <p className="no-recipes-found-message text-bold-grey text-center text-xl">
               No recipes found
             </p>
           ) : (
             <>
-              {((filteredRandomRecipes && filteredRandomRecipes.length > 0) ||
-                (filteredSearchRecipes &&
-                  filteredSearchRecipes.length > 0)) && (
+              {(filteredRandomRecipes.length > 0 ||
+                filteredSearchRecipes.length > 0) && (
                 <ul className="recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6">
-                  {filteredRandomRecipes &&
-                    filteredRandomRecipes.length > 0 &&
-                    !filteredSearchRecipes &&
+                  {filteredRandomRecipes.length > 0 &&
                     filteredRandomRecipes.map((recipe) => {
                       const { recipeId } = recipe;
                       const isFavouriteRecipe = checkIfRecipeIsFavourite(
@@ -98,8 +97,7 @@ export const HomePage = () => {
                         />
                       );
                     })}
-                  {filteredSearchRecipes &&
-                    filteredSearchRecipes.length > 0 &&
+                  {filteredSearchRecipes.length > 0 &&
                     filteredSearchRecipes.map((recipe) => {
                       const { recipeId } = recipe;
                       const isFavouriteRecipe = checkIfRecipeIsFavourite(
@@ -123,17 +121,17 @@ export const HomePage = () => {
           {loading && <Spinner />}
           {!loading &&
             !formSearchErrorMessage &&
-            ((filteredRandomRecipes &&
-              filteredRandomRecipes.length > 0 &&
-              !hasReachedMaxRandomRecipes) ||
-              (filteredSearchRecipes &&
-                filteredSearchRecipes.length > 0 &&
-                hasMoreSearchRecipes)) && (
+            ((query.length >= 3 &&
+              filteredSearchRecipes.length > 0 &&
+              hasMoreSearchRecipes) ||
+              (query.length === 0 &&
+                filteredRandomRecipes.length > 0 &&
+                !hasReachedMaxRandomRecipes)) && (
               <div className="load-more-button-container mt-6 flex justify-center">
                 <button
                   className={`${filteredSearchRecipes ? 'search' : 'random'}-recipes-load-more-button bg-bold-green text-yellow cursor-pointer rounded-lg px-4 py-2 font-medium`}
                   onClick={
-                    filteredSearchRecipes
+                    query.length >= 3
                       ? () => getMoreSearchRecipes()
                       : () => getMoreRandomRecipes()
                   }
