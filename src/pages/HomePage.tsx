@@ -8,11 +8,10 @@ import { useFavouriteRecipes } from '@/hooks/useFavouriteRecipes';
 import { useRecipeFilters } from '@/hooks/useRecipeFilters';
 
 import { MOBILE_HEADER_IMAGE, DESKTOP_HEADER_IMAGE } from '@/utils/constants';
-import { checkIfRecipeIsFavourite } from '@/utils/favourites';
 
 import { Search } from '@/components/Search/Search';
 import { Filters } from '@/components/Filters/Filters';
-import { RecipeCard } from '@/components/RecipeCard/RecipeCard';
+import { HomepageRecipes } from '@/components/HomepageRecipes/HomepageRecipes';
 import { Spinner } from '@/components/Spinner/Spinner';
 
 export const HomePage = () => {
@@ -63,57 +62,16 @@ export const HomePage = () => {
           <Filters />
         </section>
         <section className="homepage-content__recipes mt-6">
-          {!loading &&
-          (formSearchErrorMessage ||
-            (query.length >= 3 && filteredSearchRecipes.length === 0) ||
-            (!query && filteredRandomRecipes.length === 0)) ? (
-            <p className="no-recipes-found-message text-bold-grey text-center text-xl">
-              No recipes found
-            </p>
-          ) : (
-            <>
-              {(filteredRandomRecipes.length > 0 ||
-                filteredSearchRecipes.length > 0) && (
-                <ul className="recipes-list grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6">
-                  {filteredRandomRecipes.length > 0 &&
-                    filteredSearchRecipes.length === 0 &&
-                    filteredRandomRecipes.map((recipe) => {
-                      const { recipeId } = recipe;
-                      const isFavouriteRecipe = checkIfRecipeIsFavourite(
-                        recipeId,
-                        favouriteRecipes
-                      );
-
-                      return (
-                        <RecipeCard
-                          key={recipeId}
-                          recipe={recipe}
-                          variant="random"
-                          isFavouriteRecipe={isFavouriteRecipe}
-                        />
-                      );
-                    })}
-                  {filteredSearchRecipes.length > 0 &&
-                    filteredSearchRecipes.map((recipe) => {
-                      const { recipeId } = recipe;
-                      const isFavouriteRecipe = checkIfRecipeIsFavourite(
-                        recipeId,
-                        favouriteRecipes
-                      );
-
-                      return (
-                        <RecipeCard
-                          key={recipeId}
-                          recipe={recipe}
-                          variant="result"
-                          isFavouriteRecipe={isFavouriteRecipe}
-                        />
-                      );
-                    })}
-                </ul>
-              )}
-            </>
+          {!loading && (
+            <HomepageRecipes
+              query={query}
+              formSearchErrorMessage={formSearchErrorMessage}
+              filteredRandomRecipes={filteredRandomRecipes}
+              filteredSearchRecipes={filteredSearchRecipes}
+              favouriteRecipes={favouriteRecipes}
+            />
           )}
+
           {loading && <Spinner />}
           {!loading &&
             !formSearchErrorMessage &&
